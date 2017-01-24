@@ -67,7 +67,7 @@ namespace WebForms.WebShop
         {
             if (e.Row.RowType == DataControlRowType.Header)
             {
-                AddGlyph(this.GridViewProducts, e.Row);
+                AddGlyph(GridViewProducts, e.Row);
             }
         }
         

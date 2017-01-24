@@ -25,7 +25,7 @@ namespace WebForms.WebShop
 
                 // set default button on page
 
-                Form.DefaultButton = this.ButtonSearch.UniqueID;
+                Form.DefaultButton = ButtonSearch.UniqueID;
 
                 // default sort order
 
@@ -48,7 +48,7 @@ namespace WebForms.WebShop
 
             // get product name entered
 
-            string productName = this.TextBoxProductName.Text.Trim();
+            string productName = TextBoxProductName.Text.Trim();
 
             // retrieve list of products.
 
@@ -81,7 +81,7 @@ namespace WebForms.WebShop
         {
             if (e.Row.RowType == DataControlRowType.Header)
             {
-                AddGlyph(this.GridViewProducts, e.Row);
+                AddGlyph(GridViewProducts, e.Row);
             }
         }
 

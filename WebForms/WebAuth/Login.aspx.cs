@@ -32,7 +32,7 @@ namespace WebForms.WebAuth
             }
         }
 
-        protected void ButtonSubmit_Click(object sender, System.EventArgs e)
+        protected void ButtonSubmit_Click(object sender, EventArgs e)
         {
             string email = TextboxEmail.Text.Trim();
             string password = TextboxPassword.Text.Trim();
@@ -54,7 +54,7 @@ namespace WebForms.WebAuth
                 else
                 {
                     Tries += 1;
-                    this.LiteralError.Text = "Invalid Username or Password. Please try again.";
+                    LiteralError.Text = "Invalid Username or Password. Please try again.";
                 }
             }
         }

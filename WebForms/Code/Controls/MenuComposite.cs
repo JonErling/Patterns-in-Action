@@ -52,7 +52,7 @@ namespace WebForms.Controls
         
         protected override void RenderContents(HtmlTextWriter output)
         {
-            var root = this.MenuItems;
+            var root = MenuItems;
 
             output.Write(@"<div id=""navcontainer"">");
             output.Write(@"	<ul id=""navlist"">");

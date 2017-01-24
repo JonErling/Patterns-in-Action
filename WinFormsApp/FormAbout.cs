@@ -36,7 +36,7 @@ namespace WinFormsApp
         /// <param name="e"></param>
         private void buttonClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

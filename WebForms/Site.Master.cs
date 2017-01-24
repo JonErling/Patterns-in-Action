@@ -115,7 +115,7 @@ namespace WebForms
         
         public MenuComposite TheMenuInMasterPage
         {
-            get { return this.TheMenuComposite; }
+            get { return TheMenuComposite; }
         }
     }
 }

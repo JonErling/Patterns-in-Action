@@ -129,7 +129,7 @@ namespace System.Linq.Dynamic
     {
         public override string ToString()
         {
-            PropertyInfo[] props = this.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            PropertyInfo[] props = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
             StringBuilder sb = new StringBuilder();
             sb.Append("{");
             for (int i = 0; i < props.Length; i++)
@@ -309,7 +309,7 @@ namespace System.Linq.Dynamic
 #endif
                 try
                 {
-                    TypeBuilder tb = this.module.DefineType(typeName, TypeAttributes.Class |
+                    TypeBuilder tb = module.DefineType(typeName, TypeAttributes.Class |
                         TypeAttributes.Public, typeof(DynamicClass));
                     FieldInfo[] fields = GenerateProperties(tb, properties);
                     GenerateEquals(tb, fields);
@@ -670,7 +670,7 @@ namespace System.Linq.Dynamic
                 }
                 else
                 {
-                    AddSymbol("@" + i.ToString(System.Globalization.CultureInfo.InvariantCulture), value);
+                    AddSymbol("@" + i.ToString(Globalization.CultureInfo.InvariantCulture), value);
                 }
             }
         }
@@ -2225,7 +2225,7 @@ namespace System.Linq.Dynamic
 
         Exception ParseError(int pos, string format, params object[] args)
         {
-            return new ParseException(string.Format(System.Globalization.CultureInfo.CurrentCulture, format, args), pos);
+            return new ParseException(string.Format(Globalization.CultureInfo.CurrentCulture, format, args), pos);
         }
 
         static Dictionary<string, object> CreateKeywords()

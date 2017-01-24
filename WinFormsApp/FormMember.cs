@@ -24,7 +24,7 @@ namespace WinFormsApp
         public FormMember()
         {
             InitializeComponent();
-            this.Closing += FormMember_Closing;
+            Closing += FormMember_Closing;
 
             // initialize presenter.
 
@@ -73,7 +73,7 @@ namespace WinFormsApp
             try
             {
                 memberPresenter.Save();
-                this.Close();
+                Close();
             }
             catch (ApplicationException ex)
             {
@@ -97,9 +97,9 @@ namespace WinFormsApp
         private void FormMember_Load(object sender, EventArgs e)
         {
             if (MemberId == 0)
-                this.Text = "New Member";
+                Text = "New Member";
             else
-                this.Text = "Edit Member";
+                Text = "Edit Member";
 
             memberPresenter.Display(MemberId);
         }

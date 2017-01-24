@@ -60,7 +60,7 @@ namespace WebForms.WebAdmin
         {
             if (e.Row.RowType == DataControlRowType.Header)
             {
-                AddGlyph(this.GridViewOrders, e.Row);
+                AddGlyph(GridViewOrders, e.Row);
             }
         }
 

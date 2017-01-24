@@ -13,7 +13,7 @@ using BusinessObjects;
 
 namespace Mvc
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {

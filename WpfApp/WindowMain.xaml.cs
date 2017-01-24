@@ -134,7 +134,7 @@ namespace WpfApp
 
             if (window.ShowDialog() == true)
             {
-                this.MemberListBox.ScrollIntoView(ViewModel.CurrentMember);
+                MemberListBox.ScrollIntoView(ViewModel.CurrentMember);
                 CommandManager.InvalidateRequerySuggested();
             }
         }

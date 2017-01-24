@@ -57,7 +57,7 @@ namespace DataObjects.AdoNet
 
         public static string AsString(this object item, string defaultString = default(string))
         {
-            if (item == null || item.Equals(System.DBNull.Value))
+            if (item == null || item.Equals(DBNull.Value))
                 return defaultString;
 
             return item.ToString().Trim();

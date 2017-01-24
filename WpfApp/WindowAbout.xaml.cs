@@ -21,12 +21,12 @@ namespace WpfApp
         {
             InitializeComponent();
 
-            this.Title = string.Format("About {0}", AssemblyTitle);
-            this.labelProductName.Content = AssemblyProduct;
-            this.labelVersion.Content = string.Format("Version {0}", AssemblyVersion);
-            this.labelCopyright.Content = AssemblyCopyright + DateTime.Now.Year.ToString();
-            this.labelCompanyName.Content = AssemblyCompany;
-            this.textBoxDescription.Text = AssemblyDescription;
+            Title = string.Format("About {0}", AssemblyTitle);
+            labelProductName.Content = AssemblyProduct;
+            labelVersion.Content = string.Format("Version {0}", AssemblyVersion);
+            labelCopyright.Content = AssemblyCopyright + DateTime.Now.Year.ToString();
+            labelCompanyName.Content = AssemblyCompany;
+            textBoxDescription.Text = AssemblyDescription;
         }
 
         #region Assembly Attribute Accessors

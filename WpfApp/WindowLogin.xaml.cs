@@ -42,8 +42,8 @@ namespace WpfApp
                 var provider = new Provider();
                 provider.Login(email, password);
 
-                this.DialogResult = true;
-                this.Close();
+                DialogResult = true;
+                Close();
             }
             catch (Exception ex)
             {

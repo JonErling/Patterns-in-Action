@@ -48,7 +48,7 @@ namespace WpfApp
             // New member.
             if (IsNewMember)
             {
-                this.DataContext = MemberViewModel.NewMemberModel;
+                DataContext = MemberViewModel.NewMemberModel;
                 Title = "Add new member";
 
                 commandModel = MemberViewModel.AddCommandModel;
@@ -59,7 +59,7 @@ namespace WpfApp
             }
             else
             {
-                this.DataContext = MemberViewModel.CurrentMember;
+                DataContext = MemberViewModel.CurrentMember;
 
                 // save off original values. due to binding viewmodel is changed immediately when editing.
                 // so, when canceling we have these values to restore original state.
@@ -80,7 +80,7 @@ namespace WpfApp
             // the command helps determine whether save button is enabled or not
 
             buttonSave.Command = commandModel.Command;
-            buttonSave.CommandParameter = this.DataContext;
+            buttonSave.CommandParameter = DataContext;
             buttonSave.CommandBindings.Add(new CommandBinding(commandModel.Command, commandModel.OnExecute, commandModel.OnCanExecute));
         }
 
@@ -88,7 +88,7 @@ namespace WpfApp
 
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            DialogResult = true;
             Close();
         }
 

@@ -81,7 +81,7 @@ namespace WinFormsApp
         /// </summary>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         /// <summary>
@@ -100,10 +100,10 @@ namespace WinFormsApp
                 BindOrders(member.Orders);
             else
             {
-                this.Cursor = Cursors.WaitCursor;
+                Cursor = Cursors.WaitCursor;
                 _ordersPresenter.Display(member.MemberId);
 
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
             }
         }
 
@@ -371,7 +371,7 @@ namespace WinFormsApp
             node.Tag = member;
             node.ImageIndex = 1;
             node.SelectedImageIndex = 1;
-            this.treeViewMember.Nodes[0].Nodes.Add(node);
+            treeViewMember.Nodes[0].Nodes.Add(node);
 
             return node;
         }
@@ -420,12 +420,12 @@ namespace WinFormsApp
                     treeViewMember.ExpandAll();
 
                     // Enable member add/edit/delete menu items.
-                    this.addToolStripMenuItem.Enabled = true;
-                    this.editToolStripMenuItem.Enabled = true;
-                    this.deleteToolStripMenuItem.Enabled = true;
+                    addToolStripMenuItem.Enabled = true;
+                    editToolStripMenuItem.Enabled = true;
+                    deleteToolStripMenuItem.Enabled = true;
 
                     // Disable login menu
-                    this.loginToolStripMenuItem.Enabled = false;
+                    loginToolStripMenuItem.Enabled = false;
                 }
                 else
                 {
@@ -440,12 +440,12 @@ namespace WinFormsApp
                     dataGridViewOrderDetails.Rows.Clear();
 
                     // Disable member add/edit/delete menu items.
-                    this.addToolStripMenuItem.Enabled = false;
-                    this.editToolStripMenuItem.Enabled = false;
-                    this.deleteToolStripMenuItem.Enabled = false;
+                    addToolStripMenuItem.Enabled = false;
+                    editToolStripMenuItem.Enabled = false;
+                    deleteToolStripMenuItem.Enabled = false;
 
                     // Disable login menu
-                    this.loginToolStripMenuItem.Enabled = true;
+                    loginToolStripMenuItem.Enabled = true;
                 }
             }
         }

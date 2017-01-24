@@ -34,7 +34,7 @@ namespace WinFormsApp
         public FormLogin()
         {
             InitializeComponent();
-            this.Closing += FormLogin_Closing;
+            Closing += FormLogin_Closing;
 
             _loginPresenter = new LoginPresenter(this);
         }
@@ -64,7 +64,7 @@ namespace WinFormsApp
             try
             {
                 _loginPresenter.Login();
-                this.Close();
+                Close();
             }
             catch (ApplicationException ex)
             {
@@ -78,7 +78,7 @@ namespace WinFormsApp
         /// </summary>
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         /// <summary>

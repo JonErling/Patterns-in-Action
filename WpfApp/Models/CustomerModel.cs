@@ -40,10 +40,10 @@ namespace WpfApp.Models
        
         public int Delete()
         {
-            var orders = provider.GetOrders(this.MemberId);
+            var orders = provider.GetOrders(MemberId);
             if (orders == null || orders.Count == 0)
             {
-                provider.DeleteMember(this.MemberId);
+                provider.DeleteMember(MemberId);
                 return 1;
             }
             else
@@ -99,7 +99,7 @@ namespace WpfApp.Models
         {
             if (_orders == null) 
             {
-                Orders = provider.GetOrders(this.MemberId) ?? new ObservableCollection<OrderModel>();
+                Orders = provider.GetOrders(MemberId) ?? new ObservableCollection<OrderModel>();
             }
         }
     }
