@@ -13,7 +13,7 @@ namespace DataObjects.AdoNet
 
     public class OrderDao : IOrderDao
     {
-        static Db db = new Db();
+        private static readonly Db Db = new Db();
        
         public Order GetOrder(int orderId)
         {
@@ -24,7 +24,7 @@ namespace DataObjects.AdoNet
              WHERE OrderId = @OrderId";
 
             object[] parms = { "@OrderId", orderId };
-            return db.Read(sql, Make, parms).FirstOrDefault();
+            return Db.Read(sql, Make, parms).FirstOrDefault();
         }
 
         public List<Order> GetOrdersByMember(int memberId)
@@ -36,7 +36,7 @@ namespace DataObjects.AdoNet
                ORDER BY OrderDate ASC";
 
             object[] parms = { "@MemberId", memberId };
-            return db.Read(sql, Make, parms).ToList();
+            return Db.Read(sql, Make, parms).ToList();
         }
 
         public List<Order> GetOrdersByDate(DateTime dateFrom, DateTime dateThru)
@@ -49,13 +49,13 @@ namespace DataObjects.AdoNet
                 ORDER BY OrderDate ASC ";
 
             object[] parms = { "@DateFrom", dateFrom, "@DateThru", dateThru };
-            return db.Read(sql, Make, parms).ToList();
+            return Db.Read(sql, Make, parms).ToList();
         }
 
         
         // creates an Order object based on DataReader.
-        
-        static Func<IDataReader, Order> Make = reader =>
+
+        private static readonly Func<IDataReader, Order> Make = reader =>
            new Order
            {
                OrderId = reader["OrderId"].AsId(),
@@ -67,7 +67,7 @@ namespace DataObjects.AdoNet
         
         // creates query parameters list from Order object
 
-        object[] Take(Order order)
+        private object[] Take(Order order)
         {
             return new object[]  
             {

@@ -11,7 +11,7 @@ namespace WebForms.WebAdmin
 {
     public partial class OrderDetails : PageBase
     {
-        int orderId; 
+        private int _orderId; 
 
         // returns custom breadcrumb chain for this page. 
 
@@ -47,7 +47,7 @@ namespace WebForms.WebAdmin
 
                 // save off OrderId for this page
 
-                orderId = int.Parse(Page.RouteData.Values["orderid"].ToString());
+                _orderId = int.Parse(Page.RouteData.Values["orderid"].ToString());
 
                 Bind();
             }
@@ -59,7 +59,7 @@ namespace WebForms.WebAdmin
         private void Bind()
         {
             var service = new Service();
-            var order = service.GetOrder(orderId);
+            var order = service.GetOrder(_orderId);
 
             // sets the date
 
@@ -68,7 +68,7 @@ namespace WebForms.WebAdmin
             HyperLinkBack.Text = "< back to orders ";
 
 
-            var orderDetails = service.GetOrderDetails(orderId);
+            var orderDetails = service.GetOrderDetails(_orderId);
             foreach (var detail in orderDetails)
             {
                 // caching products would be more effective. however, # of details is usually fairly small.

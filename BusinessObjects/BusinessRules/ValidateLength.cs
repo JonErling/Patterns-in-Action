@@ -11,8 +11,8 @@ namespace BusinessObjects.BusinessRules
     
     public class ValidateLength : BusinessRule
     {
-        private int _min;
-        private int _max;
+        private readonly int _min;
+        private readonly int _max;
 
         public ValidateLength(string propertyName, int min, int max)
             : base(propertyName)

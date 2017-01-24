@@ -11,10 +11,10 @@ namespace DataObjects.Linq2Sql
 
     public class DataContext : ActionDataContext
     {
-        static string connectionString = ConfigurationManager.ConnectionStrings["Action"].ConnectionString;
+        private static readonly string ConnectionString = ConfigurationManager.ConnectionStrings["Action"].ConnectionString;
 
         // constructor
-        public DataContext() : base(connectionString)
+        public DataContext() : base(ConnectionString)
         {
         }
     }

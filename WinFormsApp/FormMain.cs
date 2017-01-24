@@ -30,8 +30,8 @@ namespace WinFormsApp
     /// </remarks>
     public partial class FormMain : Form, IMembersView, IOrdersView
     {
-        private MembersPresenter _membersPresenter;
-        private OrdersPresenter _ordersPresenter;
+        private readonly MembersPresenter _membersPresenter;
+        private readonly OrdersPresenter _ordersPresenter;
 
         /// <summary>
         /// Default form constructor. 

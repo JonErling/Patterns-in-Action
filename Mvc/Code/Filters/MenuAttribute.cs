@@ -10,18 +10,18 @@ namespace Mvc.Code
     
     public class MenuAttribute : ActionFilterAttribute
     {
-        MenuItem selectedMenu;
+        private readonly MenuItem _selectedMenu;
 
         public MenuAttribute(MenuItem selectedMenu)
         {
-            this.selectedMenu = selectedMenu;
+            this._selectedMenu = selectedMenu;
         }
 
         // sets selected menu in ViewData
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            filterContext.Controller.ViewData["SelectedMenu"] = selectedMenu.ToString().ToLower();
+            filterContext.Controller.ViewData["SelectedMenu"] = _selectedMenu.ToString().ToLower();
         }
     }
 }

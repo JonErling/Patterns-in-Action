@@ -7,13 +7,13 @@ using System.Windows.Forms;
 
 namespace WinFormsApp
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             var service = new Service();
             var member = service.GetMember(3);

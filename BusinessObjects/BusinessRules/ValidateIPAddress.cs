@@ -8,16 +8,16 @@ namespace BusinessObjects.BusinessRules
     
     // IP Address validation rule
     
-    public class ValidateIPAddress : ValidateRegex
+    public class ValidateIpAddress : ValidateRegex
     {
         // Match IP Address
-        public ValidateIPAddress(string propertyName) :
+        public ValidateIpAddress(string propertyName) :
             base(propertyName, @"^([0-2]?[0-5]?[0-5]\.){3}[0-2]?[0-5]?[0-5]$")
         {
             Error = propertyName + " is not a valid IP Address";
         }
 
-        public ValidateIPAddress(string propertyName, string errorMessage) :
+        public ValidateIpAddress(string propertyName, string errorMessage) :
             this(propertyName)
         {
             Error = errorMessage;

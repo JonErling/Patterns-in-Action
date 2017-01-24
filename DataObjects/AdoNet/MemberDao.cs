@@ -13,17 +13,17 @@ namespace DataObjects.AdoNet
 
     public class MemberDao : IMemberDao
     {
-        static Db db = new Db();
+        private static readonly Db Db = new Db();
 
-        public Member GetMember(int MemberId)
+        public Member GetMember(int memberId)
         {
             string sql =
             @" SELECT MemberId, Email, CompanyName, City, Country
                  FROM [Member]
                 WHERE MemberId = @MemberId";
 
-            object[] parms = { "@MemberId", MemberId };
-            return db.Read(sql, Make, parms).FirstOrDefault();
+            object[] parms = { "@MemberId", memberId };
+            return Db.Read(sql, Make, parms).FirstOrDefault();
         }
 
         public Member GetMemberByEmail(string email)
@@ -34,7 +34,7 @@ namespace DataObjects.AdoNet
                 WHERE Email = @Email";
 
             object[] parms = { "@Email", email };
-            return db.Read(sql, Make, parms).FirstOrDefault();
+            return Db.Read(sql, Make, parms).FirstOrDefault();
         }
 
         public List<Member> GetMembers(string sortExpression)
@@ -43,7 +43,7 @@ namespace DataObjects.AdoNet
             @"SELECT MemberId, Email, CompanyName, City, Country
                 FROM [Member] ".OrderBy(sortExpression);
 
-            return db.Read(sql, Make).ToList();
+            return Db.Read(sql, Make).ToList();
         }
 
         public Member GetMemberByOrder(int orderId)
@@ -54,7 +54,7 @@ namespace DataObjects.AdoNet
                 WHERE OrderId = @OrderId";
 
             object[] parms = { "@OrderId", orderId };
-            return db.Read(sql, Make, parms).FirstOrDefault();
+            return Db.Read(sql, Make, parms).FirstOrDefault();
         }
 
         public List<Member> GetMembersWithOrderStatistics(string sortExpression)
@@ -66,20 +66,20 @@ namespace DataObjects.AdoNet
                GROUP BY C.MemberId, Email, CompanyName, City, Country "
                     .OrderBy(sortExpression);
 
-            return db.Read(sql, MakeWithStats).ToList();
+            return Db.Read(sql, MakeWithStats).ToList();
         }
 
-        public void InsertMember(Member Member)
+        public void InsertMember(Member member)
         {
             string sql =
             @"INSERT INTO [Member] (Email, CompanyName, City, Country) 			
               VALUES (@Email, @CompanyName, @City, @Country)";
 
-            Member.MemberId = db.Insert(sql, Take(Member));
+            member.MemberId = Db.Insert(sql, Take(member));
             
         }
        
-        public void UpdateMember(Member Member)
+        public void UpdateMember(Member member)
         {
             string sql =
             @"UPDATE [Member]
@@ -90,22 +90,22 @@ namespace DataObjects.AdoNet
                WHERE MemberId = @MemberId";
                  
 
-            db.Update(sql, Take(Member));
+            Db.Update(sql, Take(member));
         }
 
-        public void DeleteMember(Member Member)
+        public void DeleteMember(Member member)
         {
             string sql =
             @"DELETE FROM [Member]
                WHERE MemberId = @MemberId";
 
-            db.Update(sql, Take(Member));
+            Db.Update(sql, Take(member));
         }
 
         
         // creates a Member object based on DataReader
 
-        static Func<IDataReader, Member> Make = reader =>
+        private static readonly Func<IDataReader, Member> Make = reader =>
            new Member
            {
                MemberId = reader["MemberId"].AsId(),
@@ -116,8 +116,8 @@ namespace DataObjects.AdoNet
            };
 
         // creates a Members object with order statistics based on DataReader
-        
-        static Func<IDataReader, Member> MakeWithStats = reader =>
+
+        private static readonly Func<IDataReader, Member> MakeWithStats = reader =>
         {
             var member = Make(reader);
             member.NumOrders = reader["NumOrders"].AsInt();
@@ -129,15 +129,15 @@ namespace DataObjects.AdoNet
         
         // creates query parameters list from Member object
 
-        object[] Take(Member Member)
+        private object[] Take(Member member)
         {
             return new object[]  
             {
-                "@MemberId", Member.MemberId,
-                "@Email", Member.Email,
-                "@CompanyName", Member.CompanyName,
-                "@City", Member.City,
-                "@Country", Member.Country
+                "@MemberId", member.MemberId,
+                "@Email", member.Email,
+                "@CompanyName", member.CompanyName,
+                "@City", member.City,
+                "@Country", member.Country
             };
         }
     }

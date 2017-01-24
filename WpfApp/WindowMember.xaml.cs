@@ -21,10 +21,10 @@ namespace WpfApp
         
         public bool IsNewMember { get; set; }
 
-        private string originalEmail;
-        private string originalCompany;
-        private string originalCity;
-        private string originalCountry;
+        private string _originalEmail;
+        private string _originalCompany;
+        private string _originalCity;
+        private string _originalCountry;
        
         public WindowMember()
         {
@@ -65,10 +65,10 @@ namespace WpfApp
                 // so, when canceling we have these values to restore original state.
                 // suggestion: could be implemented as Memento pattern.
 
-                originalEmail = MemberViewModel.CurrentMember.Email;
-                originalCompany = MemberViewModel.CurrentMember.CompanyName;
-                originalCity = MemberViewModel.CurrentMember.City;
-                originalCountry = MemberViewModel.CurrentMember.Country;
+                _originalEmail = MemberViewModel.CurrentMember.Email;
+                _originalCompany = MemberViewModel.CurrentMember.CompanyName;
+                _originalCity = MemberViewModel.CurrentMember.City;
+                _originalCountry = MemberViewModel.CurrentMember.Country;
 
                 Title = "Edit member";
 
@@ -100,10 +100,10 @@ namespace WpfApp
 
             if (!IsNewMember)
             {
-                MemberViewModel.CurrentMember.Email = originalEmail;
-                MemberViewModel.CurrentMember.CompanyName = originalCompany;
-                MemberViewModel.CurrentMember.City = originalCity;
-                MemberViewModel.CurrentMember.Country = originalCountry;
+                MemberViewModel.CurrentMember.Email = _originalEmail;
+                MemberViewModel.CurrentMember.CompanyName = _originalCompany;
+                MemberViewModel.CurrentMember.City = _originalCity;
+                MemberViewModel.CurrentMember.Country = _originalCountry;
             }
         }
     }

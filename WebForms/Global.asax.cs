@@ -17,7 +17,7 @@ namespace WebForms
 {
     public class Global : HttpApplication
     {
-        void Application_Start(object sender, EventArgs e)
+        private void Application_Start(object sender, EventArgs e)
         {
             // initializes the SimpleMembership system and creates the 4 membership tables if they do not already exist
             // Action is the connectionstring name. Member is user table name. MemberId is user Identity. Email is used as UserName.

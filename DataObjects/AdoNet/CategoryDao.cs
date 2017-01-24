@@ -13,7 +13,7 @@ namespace DataObjects.AdoNet
 
     public class CategoryDao : ICategoryDao
     {
-        static Db db = new Db();
+        private static readonly Db Db = new Db();
 
         public List<Category> GetCategories()
         {
@@ -21,7 +21,7 @@ namespace DataObjects.AdoNet
             @"SELECT CategoryId, CategoryName, Description
                 FROM [Category]";
 
-            return db.Read(sql, Make).ToList();
+            return Db.Read(sql, Make).ToList();
         }
 
         public Category GetCategoryByProduct(int productId)
@@ -32,11 +32,11 @@ namespace DataObjects.AdoNet
                WHERE ProductId = @ProductId";
 
             object[] parms = { "@ProductId", productId };
-            return db.Read(sql, Make, parms).FirstOrDefault();
+            return Db.Read(sql, Make, parms).FirstOrDefault();
         }
 
 
-        static Func<IDataReader, Category> Make = reader =>
+        private static readonly Func<IDataReader, Category> Make = reader =>
            new Category
            {
                CategoryId = reader["CategoryId"].AsId(),
@@ -44,7 +44,7 @@ namespace DataObjects.AdoNet
                Description = reader["Description"].AsString()
            };
 
-        object[] Take(Category category)
+        private object[] Take(Category category)
         {
             return new object[]  
             {

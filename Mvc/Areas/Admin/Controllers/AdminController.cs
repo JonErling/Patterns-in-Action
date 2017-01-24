@@ -17,7 +17,7 @@ namespace Mvc.Areas.Admin.Controllers
     [Authorize(Roles="Admin")]
     public class AdminController : Controller
     {
-        IService service { get; }
+        private IService Service { get; }
 
         // static constructor. establishes Automapper object maps
 
@@ -43,7 +43,7 @@ namespace Mvc.Areas.Admin.Controllers
         // overloaded 'injectable' constructor
         // ** Constructor Dependency Injection (DI).
 
-        public AdminController(IService service) { this.service = service; }
+        public AdminController(IService service) { this.Service = service; }
 
         // administration page
 
@@ -72,7 +72,7 @@ namespace Mvc.Areas.Admin.Controllers
             ViewBag.Menu = "members";
 
             var model = new MembersModel { Message = message };
-            var members = service.GetMembers(sort + " " + order);
+            var members = Service.GetMembers(sort + " " + order);
             var memberModels = Mapper.Map<List<Member>, List<MemberModel>>(members);
             model.Members = new SortedList<MemberModel>(memberModels, sort, order);
 
@@ -90,7 +90,7 @@ namespace Mvc.Areas.Admin.Controllers
             if (id == 0)
                 model = new MemberModel();
             else
-                model = Mapper.Map<Member, MemberModel>(service.GetMember(id));
+                model = Mapper.Map<Member, MemberModel>(Service.GetMember(id));
 
             ViewBag.Crumbs = new List<BreadCrumb>();
             ViewBag.Crumbs.Add(new BreadCrumb { Title = "home", Url = "/" });
@@ -111,8 +111,8 @@ namespace Mvc.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult MemberDelete(int id)
         {
-            var member = service.GetMember(id);
-            var orders = service.GetOrdersByMember(id);
+            var member = Service.GetMember(id);
+            var orders = Service.GetOrdersByMember(id);
 
             string message;
             if (orders != null && orders.Count > 0)
@@ -121,7 +121,7 @@ namespace Mvc.Areas.Admin.Controllers
             }
             else
             {
-                service.DeleteMember(member);
+                Service.DeleteMember(member);
                 message = "Member has been deleted successfully";
             }
 
@@ -140,12 +140,12 @@ namespace Mvc.Areas.Admin.Controllers
                 string message;
                 if (member.MemberId > 0)
                 {
-                    service.UpdateMember(member);
+                    Service.UpdateMember(member);
                     message = "Member successfully updated";
                 }
                 else
                 {
-                    service.InsertMember(member);
+                    Service.InsertMember(member);
                     message = "Member successfully added";
                 }
 
@@ -176,7 +176,7 @@ namespace Mvc.Areas.Admin.Controllers
             ViewBag.Menu = "orders";
 
             var model = new OrdersModel();
-            var members = service.GetMembersWithOrderStatistics(sort + " " + order);
+            var members = Service.GetMembersWithOrderStatistics(sort + " " + order);
             var memberModels = Mapper.Map<List<Member>, List<MemberModel>>(members);
             model.Members = new SortedList<MemberModel>(memberModels, sort, order);
 
@@ -197,8 +197,8 @@ namespace Mvc.Areas.Admin.Controllers
             ViewBag.Menu = "orders";
 
             var model = new MemberOrdersModel();
-            model.Member = Mapper.Map<Member, MemberModel>(service.GetMember(id));
-            model.Orders = Mapper.Map<List<Order>, List<OrderModel>>(service.GetOrdersByMember(id));
+            model.Member = Mapper.Map<Member, MemberModel>(Service.GetMember(id));
+            model.Orders = Mapper.Map<List<Order>, List<OrderModel>>(Service.GetOrdersByMember(id));
 
             return View(model);
         }
@@ -218,13 +218,13 @@ namespace Mvc.Areas.Admin.Controllers
             ViewBag.Menu = "orders";
 
             var model = new OrderDetailsModel();
-            var orderDetails = service.GetOrderDetails(oid);
+            var orderDetails = Service.GetOrderDetails(oid);
             model.OrderDetails = Mapper.Map<List<OrderDetail>, List<OrderDetailModel>>(orderDetails);
 
             foreach (var detail in model.OrderDetails)
             {
                 // using a product cache would be better (although # of db hits is fairly small)
-                var product = service.GetProduct(detail.ProductId);
+                var product = Service.GetProduct(detail.ProductId);
                 detail.ProductName = product.ProductName;
             }
 

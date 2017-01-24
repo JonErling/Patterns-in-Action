@@ -81,7 +81,7 @@ namespace WebForms.Code
 
         // random number generator 
 
-        static Random _random = new Random(Environment.TickCount);
+        private static readonly Random Random = new Random(Environment.TickCount);
 
         
         // saves any view and control state to appropriate viewstate provider.
@@ -91,7 +91,7 @@ namespace WebForms.Code
         {
             // create a unique name
 
-            string random = _random.Next(0, int.MaxValue).ToString();
+            string random = Random.Next(0, int.MaxValue).ToString();
             string name = "ACTION_" + random + "_" + Request.UserHostAddress + "_" + DateTime.Now.Ticks.ToString();
 
             ViewStateProviderService.SavePageState(name, viewState);

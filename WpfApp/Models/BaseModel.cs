@@ -12,28 +12,28 @@ namespace WpfApp.Models
 
         // dispatcher associated with model
 
-        protected Dispatcher dispatcher;
+        protected Dispatcher Dispatcher;
 
-        PropertyChangedEventHandler propertyChangedEvent;
+        private PropertyChangedEventHandler _propertyChangedEvent;
 
         public BaseModel()
         {
             // save off dispatcher 
 
-            dispatcher = Dispatcher.CurrentDispatcher;
+            Dispatcher = Dispatcher.CurrentDispatcher;
         }
 
         public event PropertyChangedEventHandler PropertyChanged
         {
             add
             {
-                ConfirmOnUIThread();
-                propertyChangedEvent += value;
+                ConfirmOnUiThread();
+                _propertyChangedEvent += value;
             }
             remove
             {
-                ConfirmOnUIThread();
-                propertyChangedEvent -= value;
+                ConfirmOnUiThread();
+                _propertyChangedEvent -= value;
             }
         }
 
@@ -42,12 +42,12 @@ namespace WpfApp.Models
 
         protected void Notify(string propertyName)
         {
-            ConfirmOnUIThread();
+            ConfirmOnUiThread();
             ConfirmPropertyName(propertyName);
 
-            if (propertyChangedEvent != null)
+            if (_propertyChangedEvent != null)
             {
-                propertyChangedEvent(this, new PropertyChangedEventArgs(propertyName));
+                _propertyChangedEvent(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
@@ -55,9 +55,9 @@ namespace WpfApp.Models
         // debugging facility that ensures methods are called on the UI thread
         
         [Conditional("Debug")]
-        protected void ConfirmOnUIThread()
+        protected void ConfirmOnUiThread()
         {
-            Debug.Assert(Dispatcher.CurrentDispatcher == dispatcher, "Call must be made on UI thread.");
+            Debug.Assert(Dispatcher.CurrentDispatcher == Dispatcher, "Call must be made on UI thread.");
         }
 
         

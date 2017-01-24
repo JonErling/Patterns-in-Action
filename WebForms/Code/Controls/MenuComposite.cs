@@ -65,8 +65,8 @@ namespace WebForms.Controls
 
         
         // helper that renders a menu item at the correct indentation level.  
-      
-        void RecursiveRender(HtmlTextWriter output, MenuCompositeItem item, int depth)
+
+        private void RecursiveRender(HtmlTextWriter output, MenuCompositeItem item, int depth)
         {
             if (depth > 0) // skip root node 
             {

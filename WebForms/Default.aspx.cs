@@ -8,7 +8,7 @@ using WebForms.Code;
 
 namespace WebForms
 {
-    public partial class _Default : PageBase
+    public partial class Default : PageBase
     {
         // returns breadcrumb node for this page. 
 

@@ -17,9 +17,9 @@ namespace WebForms.Code
 
     public static class ViewStateProviderService
     {
-        private static ViewStateProviderBase provider = null;
-        private static ViewStateProviderCollection providers = null;
-        private static object locker = new object();
+        private static ViewStateProviderBase _provider = null;
+        private static ViewStateProviderCollection _providers = null;
+        private static readonly object Locker = new object();
 
         // retrieves the viewstate information from the appropriate viewstate provider. 
         // Implements Lazy Load Design Pattern.
@@ -30,7 +30,7 @@ namespace WebForms.Code
             LoadProviders();
 
             // delegate to the provider
-            return provider.LoadPageState(name);
+            return _provider.LoadPageState(name);
         }
 
         
@@ -43,7 +43,7 @@ namespace WebForms.Code
             LoadProviders();
 
             // Delegate to the provider
-            provider.SavePageState(name, viewState);
+            _provider.SavePageState(name, viewState);
         }
 
         
@@ -53,27 +53,27 @@ namespace WebForms.Code
         private static void LoadProviders()
         {
             // providers are loaded just once
-            if (provider == null)
+            if (_provider == null)
             {
                 // Synchronize the process of loading the providers
-                lock (locker)
+                lock (Locker)
                 {
                     // Confirm that _provider is still null
-                    if (provider == null)
+                    if (_provider == null)
                     {
                         // Get a reference to the <viewstateService> section
                         var section = (ViewStateProviderServiceSection)
                             WebConfigurationManager.GetSection("myviewstateSection/viewstateService");
 
                         // Load all registered providers
-                        providers = new ViewStateProviderCollection();
+                        _providers = new ViewStateProviderCollection();
 
                         ProvidersHelper.InstantiateProviders
-                            (section.Providers, providers,
+                            (section.Providers, _providers,
                             typeof(ViewStateProviderBase));
 
                         // Set _provider to the default provider
-                        provider = providers[section.DefaultProvider];
+                        _provider = _providers[section.DefaultProvider];
                     }
                 }
             }

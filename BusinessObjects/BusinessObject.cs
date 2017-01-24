@@ -14,18 +14,18 @@ namespace BusinessObjects
     {
         // list of business rules
 
-        List<BusinessRule> rules = new List<BusinessRule>();
+        private readonly List<BusinessRule> _rules = new List<BusinessRule>();
 
         // list of validation errors (following validation failure)
 
-        List<string> errors = new List<string>();
+        private readonly List<string> _errors = new List<string>();
 
         
         // gets list of validations errors
         
         public List<string> Errors
         {
-            get { return errors; }
+            get { return _errors; }
         }
 
         
@@ -33,7 +33,7 @@ namespace BusinessObjects
         
         protected void AddRule(BusinessRule rule)
         {
-            rules.Add(rule);
+            _rules.Add(rule);
         }
 
         // determines whether business rules are valid or not.
@@ -43,14 +43,14 @@ namespace BusinessObjects
         {
             bool valid = true;
 
-            errors.Clear();
+            _errors.Clear();
 
-            foreach (var rule in rules)
+            foreach (var rule in _rules)
             {
                 if (!rule.Validate(this))
                 {
                     valid = false;
-                    errors.Add(rule.Error);
+                    _errors.Add(rule.Error);
                 }
             }
             return valid;

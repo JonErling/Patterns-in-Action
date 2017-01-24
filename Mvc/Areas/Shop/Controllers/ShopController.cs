@@ -13,7 +13,7 @@ namespace Mvc.Areas.Shop.Controllers
 {
     public class ShopController : Controller
     {
-        IService service { get; }
+        private IService Service { get; }
 
         // static constructor. establishes Automapper object maps
 
@@ -31,7 +31,7 @@ namespace Mvc.Areas.Shop.Controllers
         // overloaded 'injectable' constructor
         // ** Constructor Dependency Injection (DI).
 
-        public ShopController(IService service) { this.service = service; }
+        public ShopController(IService service) { this.Service = service; }
 
         // shopper page
 
@@ -59,9 +59,9 @@ namespace Mvc.Areas.Shop.Controllers
             ViewBag.Menu = "products";
 
             var model = new ProductsModel();
-            model.Categories = new SelectList(service.GetCategories(), "CategoryId", "CategoryName", categoryId);
+            model.Categories = new SelectList(Service.GetCategories(), "CategoryId", "CategoryName", categoryId);
 
-            var products = service.GetProductsByCategory(categoryId, sort + " " + order);
+            var products = Service.GetProductsByCategory(categoryId, sort + " " + order);
             var productModels = Mapper.Map<List<Product>, List<ProductModel>>(products);
             model.Products = new SortedList<ProductModel>(productModels, sort, order);
 
@@ -73,7 +73,7 @@ namespace Mvc.Areas.Shop.Controllers
         [HttpGet]
         public ActionResult Product(int id)
         {
-            var product = service.GetProduct(id);
+            var product = Service.GetProduct(id);
             var model = Mapper.Map<Product, ProductModel>(product);
             model.CategoryName = product.Category.CategoryName;
 
@@ -105,7 +105,7 @@ namespace Mvc.Areas.Shop.Controllers
             double priceFrom = PriceRange.List[int.Parse(ranges)].RangeFrom;
             double priceThru = PriceRange.List[int.Parse(ranges)].RangeThru;
             if (priceThru == 0) priceThru = 5000; // no range was selected
-            var products = service.SearchProducts(productName, priceFrom, priceThru, sort + " " + order);
+            var products = Service.SearchProducts(productName, priceFrom, priceThru, sort + " " + order);
 
             var list = Mapper.Map<List<Product>, List<ProductModel>>(products);
             model.Products = new SortedList<ProductModel>(list, sort, order);
@@ -115,7 +115,7 @@ namespace Mvc.Areas.Shop.Controllers
 
         #region private helper classes
 
-        static class PriceRange
+        private static class PriceRange
         {
             public static List<PriceRangeItem> List { get; }
 
@@ -137,7 +137,7 @@ namespace Mvc.Areas.Shop.Controllers
 
         // one item in a price range list
 
-        class PriceRangeItem
+        private class PriceRangeItem
         {
             public PriceRangeItem(int rangeId, double rangeFrom, double rangeThru, string rangeText)
             {
@@ -147,10 +147,10 @@ namespace Mvc.Areas.Shop.Controllers
                 RangeText = rangeText;
             }
 
-            public int RangeId { get; private set; }
+            private int RangeId { get; set; }
             public double RangeFrom { get; }
             public double RangeThru { get; }
-            public string RangeText { get; private set; }
+            private string RangeText { get; set; }
         }
 
         #endregion

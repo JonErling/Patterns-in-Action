@@ -13,7 +13,7 @@ namespace DataObjects.AdoNet
 
     public class ProductDao : IProductDao
     {
-        static Db db = new Db();
+        private static readonly Db Db = new Db();
     
         public List<Product> GetProductsByCategory(int categoryId, string sortExpression)
         {
@@ -23,7 +23,7 @@ namespace DataObjects.AdoNet
                WHERE C.CategoryId = @CategoryId".OrderBy(sortExpression);
 
             object[] parms = { "@CategoryId", categoryId };
-            return db.Read(sql, Make, parms).ToList();
+            return Db.Read(sql, Make, parms).ToList();
         }
 
         public List<Product> SearchProducts(string productName, double priceFrom, double priceThru, string sortExpression)
@@ -46,7 +46,7 @@ namespace DataObjects.AdoNet
             sql += where.ToString().OrderBy(sortExpression);
 
             object[] parms = { "@ProductName", "%" + productName + "%", "@PriceFrom", priceFrom, "@PriceThru", priceThru };
-            return db.Read(sql, Make, parms).ToList();
+            return Db.Read(sql, Make, parms).ToList();
         }
 
         public Product GetProduct(int productId)
@@ -58,13 +58,13 @@ namespace DataObjects.AdoNet
                 WHERE P.ProductId = @ProductId";
 
             object[] parms =  {"@ProductId", productId};
-            return db.Read(sql, Make, parms).FirstOrDefault();
+            return Db.Read(sql, Make, parms).FirstOrDefault();
         }
 
 
         // creates Product object from IDataReader
         
-        private static Func<IDataReader, Product> Make = reader =>
+        private static readonly Func<IDataReader, Product> Make = reader =>
           new Product
           {
               ProductId = reader["ProductId"].AsId(),

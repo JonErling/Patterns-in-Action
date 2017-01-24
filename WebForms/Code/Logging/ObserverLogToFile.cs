@@ -12,11 +12,11 @@ namespace WebForms.Code.Logging
 
     public class ObserverLogToFile : ILog
     {
-        private string fileName;
+        private readonly string _fileName;
 
         public ObserverLogToFile(string fileName)
         {
-            this.fileName = fileName;
+            this._fileName = fileName;
         }
 
         // write a log request to a file
@@ -32,12 +32,12 @@ namespace WebForms.Code.Logging
 
             try
             {
-                fileStream = new FileStream(fileName, FileMode.Append);
+                fileStream = new FileStream(_fileName, FileMode.Append);
             }
             catch (DirectoryNotFoundException)
             {
-                Directory.CreateDirectory((new FileInfo(fileName)).DirectoryName);
-                fileStream = new FileStream(fileName, FileMode.Append);
+                Directory.CreateDirectory((new FileInfo(_fileName)).DirectoryName);
+                fileStream = new FileStream(_fileName, FileMode.Append);
             }
 
             // NOTE: be sure you have write privileges to folder

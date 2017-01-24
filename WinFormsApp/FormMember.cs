@@ -18,8 +18,8 @@ namespace WinFormsApp
 
     public partial class FormMember : Form, IMemberView
     {
-        private MemberPresenter memberPresenter;
-        private bool cancelClose;
+        private readonly MemberPresenter _memberPresenter;
+        private bool _cancelClose;
 
         public FormMember()
         {
@@ -28,7 +28,7 @@ namespace WinFormsApp
 
             // initialize presenter.
 
-            memberPresenter = new MemberPresenter(this);
+            _memberPresenter = new MemberPresenter(this);
         }
 
         public int MemberId { get; set; }
@@ -72,13 +72,13 @@ namespace WinFormsApp
 
             try
             {
-                memberPresenter.Save();
+                _memberPresenter.Save();
                 Close();
             }
             catch (ApplicationException ex)
             {
                 MessageBox.Show(ex.Message, "Save failed");
-                cancelClose = true;
+                _cancelClose = true;
             }
         }
 
@@ -87,8 +87,8 @@ namespace WinFormsApp
         
         private void FormMember_Closing(object sender, CancelEventArgs e)
         {
-            e.Cancel = cancelClose;
-            cancelClose = false;
+            e.Cancel = _cancelClose;
+            _cancelClose = false;
         }
 
         
@@ -101,7 +101,7 @@ namespace WinFormsApp
             else
                 Text = "Edit Member";
 
-            memberPresenter.Display(MemberId);
+            _memberPresenter.Display(MemberId);
         }
     }
 }

@@ -13,25 +13,25 @@ namespace DataObjects.Linq2Sql
     
     public static class DataContextFactory
     {
-        static readonly string connectionString;
-        static readonly MappingSource mappingSource;
+        private static readonly string ConnectionString;
+        private static readonly MappingSource MappingSource;
 
         // static initialization of connectionstring and mappingSource.
         // This significantly increases performance, primarily due to mappingSource cache.
 
         static DataContextFactory()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["Action"].ConnectionString;
+            ConnectionString = ConfigurationManager.ConnectionStrings["Action"].ConnectionString;
 
-            var context = new ActionDataContext(connectionString);
-            mappingSource = context.Mapping.MappingSource;
+            var context = new ActionDataContext(ConnectionString);
+            MappingSource = context.Mapping.MappingSource;
         }
 
         // ** Factory method. creates a new DataContext using cached connectionstring
 
         public static ActionDataContext CreateContext()
         {
-            return new ActionDataContext(connectionString, mappingSource);
+            return new ActionDataContext(ConnectionString, MappingSource);
         }
     }
 }

@@ -13,114 +13,114 @@ namespace ActionService {
 
     public class Service : IService
     {
-        static readonly string provider = ConfigurationManager.AppSettings.Get("DataProvider");
-        static readonly IDaoFactory factory = DaoFactories.GetFactory(provider);
-        
-        static readonly ICategoryDao categoryDao = factory.CategoryDao;
-        static readonly IProductDao productDao = factory.ProductDao;
-        static readonly IMemberDao memberDao = factory.MemberDao;
-        static readonly IOrderDao orderDao = factory.OrderDao;
-        static readonly IOrderDetailDao orderDetailDao = factory.OrderDetailDao;
+        private static readonly string Provider = ConfigurationManager.AppSettings.Get("DataProvider");
+        private static readonly IDaoFactory Factory = DaoFactories.GetFactory(Provider);
+
+        private static readonly ICategoryDao CategoryDao = Factory.CategoryDao;
+        private static readonly IProductDao ProductDao = Factory.ProductDao;
+        private static readonly IMemberDao MemberDao = Factory.MemberDao;
+        private static readonly IOrderDao OrderDao = Factory.OrderDao;
+        private static readonly IOrderDetailDao OrderDetailDao = Factory.OrderDetailDao;
 
         // Category Services
 
         public List<Category> GetCategories() 
         { 
-            return categoryDao.GetCategories(); 
+            return CategoryDao.GetCategories(); 
         }
 
         public Category GetCategoryByProduct(int productId)
         {
-            return categoryDao.GetCategoryByProduct(productId);
+            return CategoryDao.GetCategoryByProduct(productId);
         }
 
         // Product Services
 
         public Product GetProduct(int productId)
         {
-            var product =  productDao.GetProduct(productId);
+            var product =  ProductDao.GetProduct(productId);
             if (product.Category == null) 
-                product.Category = categoryDao.GetCategoryByProduct(productId);
+                product.Category = CategoryDao.GetCategoryByProduct(productId);
 
             return product;
         }
 
         public List<Product> GetProductsByCategory(int categoryId, string sortExpression)
         {
-            return productDao.GetProductsByCategory(categoryId, sortExpression);
+            return ProductDao.GetProductsByCategory(categoryId, sortExpression);
         }
 
         public List<Product> SearchProducts(string productName, double priceFrom, double priceThru, string sortExpression)
         {
-            return productDao.SearchProducts(productName, priceFrom, priceThru, sortExpression);
+            return ProductDao.SearchProducts(productName, priceFrom, priceThru, sortExpression);
         }
 
         // Member Services
 
         public Member GetMember(int memberId)
         {
-            return memberDao.GetMember(memberId);
+            return MemberDao.GetMember(memberId);
         }
 
         public Member GetMemberByEmail(string email)
         {
-            return memberDao.GetMemberByEmail(email);
+            return MemberDao.GetMemberByEmail(email);
         }
 
         public List<Member> GetMembers(string sortExpression)
         {
-            var members = memberDao.GetMembers(sortExpression);
+            var members = MemberDao.GetMembers(sortExpression);
             members.RemoveAll(m => m.MemberId == 1);  // exclude admin (for demo purposes)
             return members;
         }
 
         public Member GetMemberByOrder(int orderId)
         {
-            return memberDao.GetMemberByOrder(orderId);
+            return MemberDao.GetMemberByOrder(orderId);
         }
 
         public List<Member> GetMembersWithOrderStatistics(string sortExpression)
         {
-            return memberDao.GetMembersWithOrderStatistics(sortExpression);
+            return MemberDao.GetMembersWithOrderStatistics(sortExpression);
         }
 
         public void InsertMember(Member member)
         {
-            memberDao.InsertMember(member);
+            MemberDao.InsertMember(member);
         }
 
         public void UpdateMember(Member member)
         {
-            memberDao.UpdateMember(member);
+            MemberDao.UpdateMember(member);
         }
 
         public void DeleteMember(Member member)
         {
-            memberDao.DeleteMember(member);
+            MemberDao.DeleteMember(member);
         }
 
         // Order Services
 
         public Order GetOrder(int orderId)
         {
-            return orderDao.GetOrder(orderId);
+            return OrderDao.GetOrder(orderId);
         }
 
         public List<Order> GetOrdersByMember(int memberId)
         {
-            return orderDao.GetOrdersByMember(memberId);
+            return OrderDao.GetOrdersByMember(memberId);
         }
 
         public List<Order> GetOrdersByDate(DateTime dateFrom, DateTime dateThru)
         {
-            return orderDao.GetOrdersByDate(dateFrom, dateThru);
+            return OrderDao.GetOrdersByDate(dateFrom, dateThru);
         }
 
         // OrderDetail Services
 
         public List<OrderDetail> GetOrderDetails(int orderId)
         {
-            return orderDetailDao.GetOrderDetails(orderId);
+            return OrderDetailDao.GetOrderDetails(orderId);
         }
 
         // Authentication and Authorization Services

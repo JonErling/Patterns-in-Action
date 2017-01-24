@@ -45,35 +45,35 @@ namespace WebForms.Code.Logging
 
         #endregion
 
-        private LogSeverity severity;
+        private LogSeverity _severity;
 
         // these booleans are used to improve performance.
 
-        private bool isDebug;
-        private bool isInfo;
-        private bool isWarning;
-        private bool isError;
-        private bool isFatal;
+        private bool _isDebug;
+        private bool _isInfo;
+        private bool _isWarning;
+        private bool _isError;
+        private bool _isFatal;
 
         
         // gets and sets the severity level of logging activity.
         
         public LogSeverity Severity
         {
-            get { return severity; }
+            get { return _severity; }
             set
             {
-                severity = value;
+                _severity = value;
 
                 // set booleans to help improve performance
 
-                int sev = (int)severity;
+                int sev = (int)_severity;
 
-                isDebug = ((int)LogSeverity.Debug) >= sev ? true : false;
-                isInfo = ((int)LogSeverity.Info) >= sev ? true : false;
-                isWarning = ((int)LogSeverity.Warning) >= sev ? true : false;
-                isError = ((int)LogSeverity.Error) >= sev ? true : false;
-                isFatal = ((int)LogSeverity.Fatal) >= sev ? true : false;
+                _isDebug = ((int)LogSeverity.Debug) >= sev ? true : false;
+                _isInfo = ((int)LogSeverity.Info) >= sev ? true : false;
+                _isWarning = ((int)LogSeverity.Warning) >= sev ? true : false;
+                _isError = ((int)LogSeverity.Error) >= sev ? true : false;
+                _isFatal = ((int)LogSeverity.Fatal) >= sev ? true : false;
             }
         }
 
@@ -82,7 +82,7 @@ namespace WebForms.Code.Logging
         
         public void Debug(string message)
         {
-            if (isDebug)
+            if (_isDebug)
                 Debug(message, null);
         }
 
@@ -90,7 +90,7 @@ namespace WebForms.Code.Logging
         
         public void Debug(string message, Exception exception)
         {
-            if (isDebug)
+            if (_isDebug)
                 OnLog(new LogEventArgs(LogSeverity.Debug, message, exception, DateTime.Now));
         }
 
@@ -99,7 +99,7 @@ namespace WebForms.Code.Logging
 
         public void Info(string message)
         {
-            if (isInfo)
+            if (_isInfo)
                 Info(message, null);
         }
 
@@ -108,7 +108,7 @@ namespace WebForms.Code.Logging
 
         public void Info(string message, Exception exception)
         {
-            if (isInfo)
+            if (_isInfo)
                 OnLog(new LogEventArgs(LogSeverity.Info, message, exception, DateTime.Now));
         }
 
@@ -116,7 +116,7 @@ namespace WebForms.Code.Logging
 
         public void Warning(string message)
         {
-            if (isWarning)
+            if (_isWarning)
                 Warning(message, null);
         }
 
@@ -125,7 +125,7 @@ namespace WebForms.Code.Logging
 
         public void Warning(string message, Exception exception)
         {
-            if (isWarning)
+            if (_isWarning)
                 OnLog(new LogEventArgs(LogSeverity.Warning, message, exception, DateTime.Now));
         }
 
@@ -134,7 +134,7 @@ namespace WebForms.Code.Logging
         
         public void Error(string message)
         {
-            if (isError)
+            if (_isError)
                 Error(message, null);
         }
 
@@ -142,7 +142,7 @@ namespace WebForms.Code.Logging
         
         public void Error(string message, Exception exception)
         {
-            if (isError)
+            if (_isError)
                 OnLog(new LogEventArgs(LogSeverity.Error, message, exception, DateTime.Now));
         }
 
@@ -151,7 +151,7 @@ namespace WebForms.Code.Logging
         
         public void Fatal(string message)
         {
-            if (isFatal)
+            if (_isFatal)
                 Fatal(message, null);
         }
 
@@ -159,7 +159,7 @@ namespace WebForms.Code.Logging
 
         public void Fatal(string message, Exception exception)
         {
-            if (isFatal)
+            if (_isFatal)
                 OnLog(new LogEventArgs(LogSeverity.Fatal, message, exception, DateTime.Now));
         }
 

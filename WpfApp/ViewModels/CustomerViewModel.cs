@@ -10,7 +10,7 @@ namespace WpfApp.ViewModels
 
     public class MemberViewModel : ViewModelBase
     {
-        private IProvider provider;
+        private readonly IProvider _provider;
 
         public ObservableCollection<MemberModel> Members { get; }
 
@@ -20,7 +20,7 @@ namespace WpfApp.ViewModels
 
         public MemberViewModel(IProvider provider)
         {
-            this.provider = provider;
+            this._provider = provider;
 
             Members = new ObservableCollection<MemberModel>();
 
@@ -38,7 +38,7 @@ namespace WpfApp.ViewModels
 
         public MemberModel NewMemberModel
         {
-            get { return new MemberModel(provider); }
+            get { return new MemberModel(_provider); }
         }
 
         // indicates whether a new member can be added
@@ -78,7 +78,7 @@ namespace WpfApp.ViewModels
         public void LoadMembers()
         {
             string sortExpression = "CompanyName ASC";
-            foreach (var member in provider.GetMembers(sortExpression))
+            foreach (var member in _provider.GetMembers(sortExpression))
                 Members.Add(member);
 
             if (Members.Count > 0)
@@ -98,15 +98,15 @@ namespace WpfApp.ViewModels
             IsLoaded = false;
         }
 
-        private MemberModel currentMemberModel;
+        private MemberModel _currentMemberModel;
         public MemberModel CurrentMember
         {
-            get { return currentMemberModel; }
+            get { return _currentMemberModel; }
             set
             {
-                if (currentMemberModel != value)
+                if (_currentMemberModel != value)
                 {
-                    currentMemberModel = value;
+                    _currentMemberModel = value;
                     OnPropertyChanged("CurrentMember");
                 }
             }
@@ -118,11 +118,11 @@ namespace WpfApp.ViewModels
 
         private class AddCommand : CommandModel
         {
-            private MemberViewModel viewModel;
+            private readonly MemberViewModel _viewModel;
 
             public AddCommand(MemberViewModel viewModel)
             {
-                this.viewModel = viewModel;
+                this._viewModel = viewModel;
             }
 
             public override void OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -145,8 +145,8 @@ namespace WpfApp.ViewModels
                 var member = e.Parameter as MemberModel;
                 member.Add();
 
-                viewModel.Members.Add(member);
-                viewModel.CurrentMember = member;
+                _viewModel.Members.Add(member);
+                _viewModel.CurrentMember = member;
             }
         }
 
@@ -155,11 +155,11 @@ namespace WpfApp.ViewModels
 
         private class EditCommand : CommandModel
         {
-            private MemberViewModel viewModel;
+            private MemberViewModel _viewModel;
 
             public EditCommand(MemberViewModel viewModel)
             {
-                this.viewModel = viewModel;
+                this._viewModel = viewModel;
             }
 
             public override void OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -189,26 +189,26 @@ namespace WpfApp.ViewModels
 
         private class DeleteCommand : CommandModel
         {
-            private MemberViewModel viewModel;
+            private readonly MemberViewModel _viewModel;
 
             public DeleteCommand(MemberViewModel viewModel)
             {
-                this.viewModel = viewModel;
+                this._viewModel = viewModel;
             }
 
             public override void OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
             {
-                e.CanExecute = viewModel.CanDelete;
+                e.CanExecute = _viewModel.CanDelete;
                 e.Handled = true;
             }
 
             public override void OnExecute(object sender, ExecutedRoutedEventArgs e)
             {
-                var memberModel = viewModel.CurrentMember;
+                var memberModel = _viewModel.CurrentMember;
 
                 if (memberModel.Delete() > 0)
                 {
-                    viewModel.Members.Remove(memberModel);
+                    _viewModel.Members.Remove(memberModel);
                     e.Handled = true;
                 }
             }

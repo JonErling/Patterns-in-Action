@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Mvc.Tests.Controllers
 {
     [TestClass]
-    class AdminControllerTest
+    internal class AdminControllerTest
     {
         // not implemented in Pattern in Action.
         // see ShopControllerTest for a unit testing sample. 

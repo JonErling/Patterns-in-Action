@@ -15,15 +15,15 @@ namespace DataObjects.AdoNet
     {
         // ** Factory pattern
 
-        static DbProviderFactory factory = DbProviderFactories.GetFactory("System.Data.SqlClient");
-        public string connectionString { get; set; }
+        private static readonly DbProviderFactory Factory = DbProviderFactories.GetFactory("System.Data.SqlClient");
+        public string ConnectionString { get; set; }
 
         public Db(string conn = null)
         {
             if (conn == null) // index is 1 because 0 = localdb
-                connectionString = ConfigurationManager.ConnectionStrings[1].ConnectionString;
+                ConnectionString = ConfigurationManager.ConnectionStrings[1].ConnectionString;
             else
-                connectionString = ConfigurationManager.ConnectionStrings[conn].ConnectionString;
+                ConnectionString = ConfigurationManager.ConnectionStrings[conn].ConnectionString;
         }
 
 
@@ -100,23 +100,23 @@ namespace DataObjects.AdoNet
 
         // creates a connection object
 
-        DbConnection CreateConnection()
+        private DbConnection CreateConnection()
         {
             // ** Factory pattern in action
 
-            var connection = factory.CreateConnection();
-            connection.ConnectionString = connectionString;
+            var connection = Factory.CreateConnection();
+            connection.ConnectionString = ConnectionString;
             connection.Open();
             return connection;
         }
 
         // creates a command object
 
-        DbCommand CreateCommand(string sql, DbConnection conn, params object[] parms)
+        private DbCommand CreateCommand(string sql, DbConnection conn, params object[] parms)
         {
             // ** Factory pattern in action
 
-            var command = factory.CreateCommand();
+            var command = Factory.CreateCommand();
             command.Connection = conn;
             command.CommandText = sql;
             command.AddParameters(parms);
@@ -125,11 +125,11 @@ namespace DataObjects.AdoNet
 
         // creates an adapter object
 
-        DbDataAdapter CreateAdapter(DbCommand command)
+        private DbDataAdapter CreateAdapter(DbCommand command)
         {
             // ** Factory pattern in action
 
-            var adapter = factory.CreateDataAdapter();
+            var adapter = Factory.CreateDataAdapter();
             adapter.SelectCommand = command;
             return adapter;
         }

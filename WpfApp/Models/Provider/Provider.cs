@@ -14,7 +14,7 @@ namespace WpfApp.Models
 
     public class Provider : IProvider
     {
-        static Service service = new Service();
+        private static readonly Service Service = new Service();
 
         // establishes Automapper object mappings
 
@@ -52,13 +52,13 @@ namespace WpfApp.Models
 
         public ObservableCollection<MemberModel> GetMembers(string sortExpression)
         {
-            var members = service.GetMembers(sortExpression);
+            var members = Service.GetMembers(sortExpression);
             return Mapper.Map<List<Member>, ObservableCollection<MemberModel>>(members);
         }
 
         public MemberModel GetMember(int memberId)
         {
-            var member = service.GetMember(memberId);
+            var member = Service.GetMember(memberId);
             return Mapper.Map<Member, MemberModel>(member);
            
         }
@@ -72,7 +72,7 @@ namespace WpfApp.Models
         public void AddMember(MemberModel model)
         {
             var member = Mapper.Map<MemberModel, Member>(model);
-            service.InsertMember(member);
+            Service.InsertMember(member);
             
             // retrieve new memberid
             model.MemberId = member.MemberId;
@@ -83,7 +83,7 @@ namespace WpfApp.Models
         public void UpdateMember(MemberModel model)
         {
             var member = Mapper.Map<MemberModel, Member>(model);
-            service.UpdateMember(member);
+            Service.UpdateMember(member);
             
         }
 
@@ -91,8 +91,8 @@ namespace WpfApp.Models
 
         public void DeleteMember(int memberId)
         {
-            var member = service.GetMember(memberId);
-            service.DeleteMember(member);
+            var member = Service.GetMember(memberId);
+            Service.DeleteMember(member);
         }
 
         #endregion
@@ -104,19 +104,19 @@ namespace WpfApp.Models
         
         public ObservableCollection<OrderModel> GetOrders(int memberId)
         {
-            var orders = service.GetOrdersByMember(memberId);
+            var orders = Service.GetOrdersByMember(memberId);
             var models = Mapper.Map<List<Order>, ObservableCollection<OrderModel>>(orders);
 
             // get all products
 
-            var products = service.SearchProducts("", 0, 5000, "ProductId ASC").ToDictionary(p => p.ProductId);
+            var products = Service.SearchProducts("", 0, 5000, "ProductId ASC").ToDictionary(p => p.ProductId);
 
             // rather inefficient. the service API is not flexible enough to perform larger batch retrieves.
             // see Spark for a richer API with generic Repositories
 
             foreach (var model in models)
             {
-                var details = service.GetOrderDetails(model.OrderId);
+                var details = Service.GetOrderDetails(model.OrderId);
                 details.ForEach(d => d.ProductName = products[d.ProductId].ProductName);
                 model.OrderDetails = Mapper.Map<List<OrderDetail>, ObservableCollection<OrderDetailModel>>(details);
             }

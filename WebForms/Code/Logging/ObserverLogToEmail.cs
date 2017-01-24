@@ -12,20 +12,20 @@ namespace WebForms.Code.Logging
 
     public class ObserverLogToEmail : ILog
     {
-        private string from;
-        private string to;
-        private string subject;
-        private string body;
-        private SmtpClient smtpClient;
+        private string _from;
+        private string _to;
+        private string _subject;
+        private string _body;
+        private SmtpClient _smtpClient;
 
         public ObserverLogToEmail(string from, string to, string subject, string body, SmtpClient smtpClient)
 		{
-            this.from = from;
-            this.to = to;
-            this.subject = subject;
-            this.body = body;
+            this._from = from;
+            this._to = to;
+            this._subject = subject;
+            this._body = body;
             
-            this.smtpClient = smtpClient;
+            this._smtpClient = smtpClient;
 		}
 
         #region ILog Members

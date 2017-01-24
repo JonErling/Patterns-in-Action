@@ -22,44 +22,44 @@ namespace Mvc.Tests.Controllers
     {
         // the mock service
 
-        Mock<IService> mockService;
+        private Mock<IService> _mockService;
 
         // initialize testing environment by setting up the mocked Service and their return values.
         
         [TestInitialize]
         public void InitializeMocks()
         {
-            mockService = new Mock<IService>();
+            _mockService = new Mock<IService>();
 
             // setup for getting a list of categories
 
             var categories = new List<Category> { new Category { CategoryId = 1, CategoryName = "test-category" } };
-            mockService.Setup(s => s.GetCategories()).Returns(categories);
+            _mockService.Setup(s => s.GetCategories()).Returns(categories);
 
             // setup for getting a list of products
 
             var products = new List<Product> { new Product { ProductId = 1, ProductName = "test-product" } };
-            mockService.Setup(s => s.GetProductsByCategory(It.IsAny<int>(),"unitprice asc")).Returns(products);
+            _mockService.Setup(s => s.GetProductsByCategory(It.IsAny<int>(),"unitprice asc")).Returns(products);
 
             // setup for getting a product
 
             var product = new Product { ProductId = 1, ProductName = "test-product", Category = new Category { CategoryName = "test-category" } };
-            mockService.Setup(s => s.GetProduct(1)).Returns(product);
+            _mockService.Setup(s => s.GetProduct(1)).Returns(product);
 
             // setup for searching for products
 
-            mockService.Setup(s => s.SearchProducts("", 0, 5000, "unitprice asc")).Returns(products);
+            _mockService.Setup(s => s.SearchProducts("", 0, 5000, "unitprice asc")).Returns(products);
         }
 
         // helper. creates shop controller
         // this is a Factory Method
 
-        ShopController CreateShopController()
+        private ShopController CreateShopController()
         {
             // Note: this is where DI (Dependency Injection) takes place.
             // the service layer is injected (via the constructor) into the controller.
 
-            return new ShopController(mockService.Object);
+            return new ShopController(_mockService.Object);
         }
 
         // tests Shopping page

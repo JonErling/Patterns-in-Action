@@ -31,25 +31,25 @@ namespace WpfApp.Commands
         
         static ActionCommands()
         {
-            LoginCommand = MakeRoutedUICommand("Login", Key.I, "Ctrl+I");
-            LogoutCommand = MakeRoutedUICommand("Logout", Key.O, "Ctrl+O");
-            ExitCommand = MakeRoutedUICommand("Exit");
+            LoginCommand = MakeRoutedUiCommand("Login", Key.I, "Ctrl+I");
+            LogoutCommand = MakeRoutedUiCommand("Logout", Key.O, "Ctrl+O");
+            ExitCommand = MakeRoutedUiCommand("Exit");
 
-            AddCommand = MakeRoutedUICommand("Add", Key.A, "Ctrl+A");
-            EditCommand = MakeRoutedUICommand("Edit", Key.E, "Ctrl+E");
-            DeleteCommand = MakeRoutedUICommand("Delete", Key.Delete, "Del");
+            AddCommand = MakeRoutedUiCommand("Add", Key.A, "Ctrl+A");
+            EditCommand = MakeRoutedUiCommand("Edit", Key.E, "Ctrl+E");
+            DeleteCommand = MakeRoutedUiCommand("Delete", Key.Delete, "Del");
 
-            ViewOrdersCommand = MakeRoutedUICommand("View Orders");
+            ViewOrdersCommand = MakeRoutedUiCommand("View Orders");
 
-            HowDoICommand = MakeRoutedUICommand("How Do I", Key.H, "Ctrl+D");
-            IndexCommand = MakeRoutedUICommand("Index", Key.N, "Ctrl+N");
-            AboutCommand = MakeRoutedUICommand("About");
+            HowDoICommand = MakeRoutedUiCommand("How Do I", Key.H, "Ctrl+D");
+            IndexCommand = MakeRoutedUiCommand("Index", Key.N, "Ctrl+N");
+            AboutCommand = MakeRoutedUiCommand("About");
         }
 
         
         // creates a routed command instance without shortcut key
 
-        private static RoutedUICommand MakeRoutedUICommand(string name)
+        private static RoutedUICommand MakeRoutedUiCommand(string name)
         {
             return new RoutedUICommand(name, name, typeof(ActionCommands));
         }
@@ -57,7 +57,7 @@ namespace WpfApp.Commands
         
         // creates a routed command instance with a shortcut key
 
-        private static RoutedUICommand MakeRoutedUICommand(string name, Key key, string displayString)
+        private static RoutedUICommand MakeRoutedUiCommand(string name, Key key, string displayString)
         {
             var gestures = new InputGestureCollection();
             gestures.Add(new KeyGesture(key, ModifierKeys.Control, displayString));

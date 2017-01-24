@@ -130,7 +130,7 @@ namespace DataObjects.AdoNet
         // takes an enumerable source and returns a comma separate string.
         // handy for building SQL Statements (for example with IN () statements) from object collections
 
-        public static string CommaSeparate<T, U>(this IEnumerable<T> source, Func<T, U> func)
+        public static string CommaSeparate<T, TU>(this IEnumerable<T> source, Func<T, TU> func)
         {
             return string.Join(",", source.Select(s => func(s).ToString()).ToArray());
         }

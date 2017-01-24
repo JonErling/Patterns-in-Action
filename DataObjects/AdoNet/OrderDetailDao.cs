@@ -14,7 +14,7 @@ namespace DataObjects.AdoNet
 
     public class OrderDetailDao : IOrderDetailDao
     {
-        static Db db = new Db();
+        private static readonly Db Db = new Db();
 
         public List<OrderDetail> GetOrderDetails(int orderId)
         {
@@ -24,13 +24,13 @@ namespace DataObjects.AdoNet
                WHERE OrderId = @OrderId";
 
             object[] parms = { "@OrderId", orderId };
-            return db.Read(sql, Make, parms).ToList();
+            return Db.Read(sql, Make, parms).ToList();
         }
 
         
         // creates order detail object from IDataReader
-        
-        static Func<IDataReader, OrderDetail> Make = reader =>
+
+        private static readonly Func<IDataReader, OrderDetail> Make = reader =>
           new OrderDetail
           {
               OrderId = reader["OrderId"].AsId(),
@@ -43,8 +43,8 @@ namespace DataObjects.AdoNet
 
         
         // creates query parameter list from order detail object
-        
-        object[] Take(OrderDetail orderDetail)
+
+        private object[] Take(OrderDetail orderDetail)
         {
             return new object[]  
             {

@@ -15,35 +15,35 @@ namespace WpfApp.Models
     
     public class MemberModel : BaseModel
     {
-        IProvider provider;
+        private readonly IProvider _provider;
 
         // private data members
 
-        int memberId = 0;
-        string email;
-        string companyName;
-        string city;
-        string country;
-        
-        ObservableCollection<OrderModel> _orders;
+        private int _memberId = 0;
+        private string _email;
+        private string _companyName;
+        private string _city;
+        private string _country;
+
+        private ObservableCollection<OrderModel> _orders;
 
         public MemberModel(IProvider provider)
         {
-            this.provider = provider;
+            this._provider = provider;
         }
 
         public int Add()
         {
-            provider.AddMember(this); ;
+            _provider.AddMember(this); ;
             return 1; 
         }
        
         public int Delete()
         {
-            var orders = provider.GetOrders(MemberId);
+            var orders = _provider.GetOrders(MemberId);
             if (orders == null || orders.Count == 0)
             {
-                provider.DeleteMember(MemberId);
+                _provider.DeleteMember(MemberId);
                 return 1;
             }
             else
@@ -53,53 +53,53 @@ namespace WpfApp.Models
 
         public int Update()
         {
-            provider.UpdateMember(this);
+            _provider.UpdateMember(this);
             return 1; 
         }
 
         public int MemberId
         {
-            get { ConfirmOnUIThread(); return memberId; }
-            set { ConfirmOnUIThread(); if (memberId != value) { memberId = value; Notify("MemberId"); } }
+            get { ConfirmOnUiThread(); return _memberId; }
+            set { ConfirmOnUiThread(); if (_memberId != value) { _memberId = value; Notify("MemberId"); } }
         }
 
         public string Email
         {
-            get { ConfirmOnUIThread(); return email; }
-            set { ConfirmOnUIThread(); if (email != value) { email = value; Notify("Email"); } }
+            get { ConfirmOnUiThread(); return _email; }
+            set { ConfirmOnUiThread(); if (_email != value) { _email = value; Notify("Email"); } }
         }
 
         public string CompanyName
         {
-            get { ConfirmOnUIThread(); return companyName; }
-            set { ConfirmOnUIThread(); if (companyName != value) { companyName = value; Notify("CompanyName"); } }
+            get { ConfirmOnUiThread(); return _companyName; }
+            set { ConfirmOnUiThread(); if (_companyName != value) { _companyName = value; Notify("CompanyName"); } }
         }
 
         public string City
         {
-            get { ConfirmOnUIThread(); return city; }
-            set { ConfirmOnUIThread(); if (city != value) { city = value; Notify("City"); } }
+            get { ConfirmOnUiThread(); return _city; }
+            set { ConfirmOnUiThread(); if (_city != value) { _city = value; Notify("City"); } }
         }
 
         public string Country
         {
-            get { ConfirmOnUIThread(); return country; }
-            set { ConfirmOnUIThread(); if (country != value) { country = value; Notify("Country"); } }
+            get { ConfirmOnUiThread(); return _country; }
+            set { ConfirmOnUiThread(); if (_country != value) { _country = value; Notify("Country"); } }
         }
 
         public ObservableCollection<OrderModel> Orders
         {
-            get { ConfirmOnUIThread(); LazyloadOrders(); return _orders; }
-            set { ConfirmOnUIThread(); _orders = value; Notify("Orders"); }
+            get { ConfirmOnUiThread(); LazyloadOrders(); return _orders; }
+            set { ConfirmOnUiThread(); _orders = value; Notify("Orders"); }
         }
 
         // helper that performs lazy loading of orders
 
-        void LazyloadOrders()
+        private void LazyloadOrders()
         {
             if (_orders == null) 
             {
-                Orders = provider.GetOrders(MemberId) ?? new ObservableCollection<OrderModel>();
+                Orders = _provider.GetOrders(MemberId) ?? new ObservableCollection<OrderModel>();
             }
         }
     }

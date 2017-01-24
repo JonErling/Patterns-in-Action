@@ -35,13 +35,13 @@ namespace WebForms.Code
         public static string ToError() { return Path("~/error"); }
 
         // private url builder helper
-        static string Path(string virtualPath)
+        private static string Path(string virtualPath)
         {
             return VirtualPathUtility.ToAbsolute(virtualPath);
         }
 
         // overloaded private url builder helper
-        static string Path(string virtualPath, params object[] args)
+        private static string Path(string virtualPath, params object[] args)
         {
             return Path(string.Format(virtualPath, args));
         }

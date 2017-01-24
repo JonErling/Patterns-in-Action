@@ -25,7 +25,7 @@ namespace WinFormsApp
     public partial class FormLogin : Form, ILoginView
     {
         // The Presenter
-        private LoginPresenter _loginPresenter;
+        private readonly LoginPresenter _loginPresenter;
         private bool _cancelClose;
 
         /// <summary>

@@ -12,14 +12,14 @@ namespace Mvc.Areas.Auth.Controllers
 {
     public class AuthController : Controller
     {
-        IService service { get; }
+        private IService Service { get; }
 
         // default constructor
         public AuthController() : this(new Service()) { }
 
         // overloaded 'injectable' constructor
         // ** Constructor Dependency Injection (DI).
-        public AuthController(IService service) { this.service = service; }
+        public AuthController(IService service) { this.Service = service; }
 
         // login page
 
@@ -43,7 +43,7 @@ namespace Mvc.Areas.Auth.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (service.Login(model.Email, model.Password))
+                if (Service.Login(model.Email, model.Password))
                 {
                     if (!string.IsNullOrEmpty(returnUrl)) return Redirect(returnUrl);
 
@@ -73,7 +73,7 @@ namespace Mvc.Areas.Auth.Controllers
 
             ViewBag.Menu = "home";
 
-            service.Logout();
+            Service.Logout();
 
             return View();
         }
