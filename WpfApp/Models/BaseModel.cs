@@ -16,7 +16,7 @@ namespace WpfApp.Models
 
         private PropertyChangedEventHandler _propertyChangedEvent;
 
-        public BaseModel()
+        protected BaseModel()
         {
             // save off dispatcher 
 

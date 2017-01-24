@@ -14,7 +14,7 @@ namespace Mvc.Code
 
         public MenuAttribute(MenuItem selectedMenu)
         {
-            this._selectedMenu = selectedMenu;
+            _selectedMenu = selectedMenu;
         }
 
         // sets selected menu in ViewData

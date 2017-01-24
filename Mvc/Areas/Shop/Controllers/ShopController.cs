@@ -31,7 +31,7 @@ namespace Mvc.Areas.Shop.Controllers
         // overloaded 'injectable' constructor
         // ** Constructor Dependency Injection (DI).
 
-        public ShopController(IService service) { this.Service = service; }
+        public ShopController(IService service) { Service = service; }
 
         // shopper page
 

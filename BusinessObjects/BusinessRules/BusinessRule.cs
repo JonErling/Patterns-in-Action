@@ -14,13 +14,13 @@ namespace BusinessObjects.BusinessRules
         public string Property { get; set; }
         public string Error { get; set; }
 
-        public BusinessRule(string property)
+        protected BusinessRule(string property)
         {
             Property = property;
             Error = property + " is not valid";
         }
 
-        public BusinessRule(string property, string error)
+        protected BusinessRule(string property, string error)
             : this(property)
         {
             Error = error;

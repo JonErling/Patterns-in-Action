@@ -16,7 +16,7 @@ namespace WebForms.Code.Logging
 
         public ObserverLogToFile(string fileName)
         {
-            this._fileName = fileName;
+            _fileName = fileName;
         }
 
         // write a log request to a file

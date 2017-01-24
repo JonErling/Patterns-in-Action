@@ -7,7 +7,7 @@ namespace WpfApp.ViewModels
     
     public abstract class CommandModel 
     {
-        public CommandModel()
+        protected CommandModel()
         {
             Command = new RoutedUICommand();
         }

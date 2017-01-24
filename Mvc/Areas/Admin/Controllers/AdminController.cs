@@ -43,7 +43,7 @@ namespace Mvc.Areas.Admin.Controllers
         // overloaded 'injectable' constructor
         // ** Constructor Dependency Injection (DI).
 
-        public AdminController(IService service) { this.Service = service; }
+        public AdminController(IService service) { Service = service; }
 
         // administration page
 

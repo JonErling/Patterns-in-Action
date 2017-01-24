@@ -29,12 +29,12 @@ namespace WpfApp.Models
 
         public MemberModel(IProvider provider)
         {
-            this._provider = provider;
+            _provider = provider;
         }
 
         public int Add()
         {
-            _provider.AddMember(this); ;
+            _provider.AddMember(this);
             return 1; 
         }
        

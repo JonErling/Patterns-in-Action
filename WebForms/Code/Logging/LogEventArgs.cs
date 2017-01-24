@@ -48,7 +48,7 @@ namespace WebForms.Code.Logging
         /// <summary>
         /// Friendly string that represents the severity.
         /// </summary>
-        public String SeverityString
+        public string SeverityString
         {
             get { return Severity.ToString("G"); }
         }
@@ -57,7 +57,7 @@ namespace WebForms.Code.Logging
         /// LogEventArgs as a string representation.
         /// </summary>
         /// <returns>String representation of the LogEventArgs.</returns>
-        public override String ToString()
+        public override string ToString()
         {
             return "" + Date
                 + " - " + SeverityString

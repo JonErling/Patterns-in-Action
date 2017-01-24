@@ -153,8 +153,8 @@ namespace System.Linq.Dynamic
         {
             if (name == null) throw new ArgumentNullException("name");
             if (type == null) throw new ArgumentNullException("type");
-            this._name = name;
-            this._type = type;
+            _name = name;
+            _type = type;
         }
 
         public string Name
@@ -216,7 +216,7 @@ namespace System.Linq.Dynamic
 
         public Signature(IEnumerable<DynamicProperty> properties)
         {
-            this.Properties = properties.ToArray();
+            Properties = properties.ToArray();
             HashCode = 0;
             foreach (DynamicProperty p in properties)
             {
@@ -427,7 +427,7 @@ namespace System.Linq.Dynamic
         public ParseException(string message, int position)
             : base(message)
         {
-            this._position = position;
+            _position = position;
         }
 
         public int Position
@@ -594,21 +594,21 @@ namespace System.Linq.Dynamic
         }
 
         private static readonly Type[] PredefinedTypes = {
-            typeof(Object),
-            typeof(Boolean),
-            typeof(Char),
-            typeof(String),
-            typeof(SByte),
-            typeof(Byte),
-            typeof(Int16),
-            typeof(UInt16),
-            typeof(Int32),
-            typeof(UInt32),
-            typeof(Int64),
-            typeof(UInt64),
-            typeof(Single),
-            typeof(Double),
-            typeof(Decimal),
+            typeof(object),
+            typeof(bool),
+            typeof(char),
+            typeof(string),
+            typeof(sbyte),
+            typeof(byte),
+            typeof(short),
+            typeof(ushort),
+            typeof(int),
+            typeof(uint),
+            typeof(long),
+            typeof(ulong),
+            typeof(float),
+            typeof(double),
+            typeof(decimal),
             typeof(DateTime),
             typeof(TimeSpan),
             typeof(Guid),
@@ -653,9 +653,9 @@ namespace System.Linq.Dynamic
         private void ProcessParameters(ParameterExpression[] parameters)
         {
             foreach (ParameterExpression pe in parameters)
-                if (!String.IsNullOrEmpty(pe.Name))
+                if (!string.IsNullOrEmpty(pe.Name))
                     AddSymbol(pe.Name, pe);
-            if (parameters.Length == 1 && String.IsNullOrEmpty(parameters[0].Name))
+            if (parameters.Length == 1 && string.IsNullOrEmpty(parameters[0].Name))
                 _it = parameters[0];
         }
 
@@ -1010,21 +1010,21 @@ namespace System.Linq.Dynamic
             if (text[0] != '-')
             {
                 ulong value;
-                if (!UInt64.TryParse(text, out value))
+                if (!ulong.TryParse(text, out value))
                     throw ParseError(Res.InvalidIntegerLiteral, text);
                 NextToken();
-                if (value <= (ulong)Int32.MaxValue) return CreateLiteral((int)value, text);
-                if (value <= (ulong)UInt32.MaxValue) return CreateLiteral((uint)value, text);
-                if (value <= (ulong)Int64.MaxValue) return CreateLiteral((long)value, text);
+                if (value <= (ulong)int.MaxValue) return CreateLiteral((int)value, text);
+                if (value <= (ulong)uint.MaxValue) return CreateLiteral((uint)value, text);
+                if (value <= (ulong)long.MaxValue) return CreateLiteral((long)value, text);
                 return CreateLiteral(value, text);
             }
             else
             {
                 long value;
-                if (!Int64.TryParse(text, out value))
+                if (!long.TryParse(text, out value))
                     throw ParseError(Res.InvalidIntegerLiteral, text);
                 NextToken();
-                if (value >= Int32.MinValue && value <= Int32.MaxValue)
+                if (value >= int.MinValue && value <= int.MaxValue)
                     return CreateLiteral((int)value, text);
                 return CreateLiteral(value, text);
             }
@@ -1039,12 +1039,12 @@ namespace System.Linq.Dynamic
             if (last == 'F' || last == 'f')
             {
                 float f;
-                if (Single.TryParse(text.Substring(0, text.Length - 1), out f)) value = f;
+                if (float.TryParse(text.Substring(0, text.Length - 1), out f)) value = f;
             }
             else
             {
                 double d;
-                if (Double.TryParse(text, out d)) value = d;
+                if (double.TryParse(text, out d)) value = d;
             }
             if (value == null) throw ParseError(Res.InvalidRealLiteral, text);
             NextToken();
@@ -1638,7 +1638,7 @@ namespace System.Linq.Dynamic
                     if (_literals.TryGetValue(ce, out text))
                     {
                         Type target = GetNonNullableType(type);
-                        Object value = null;
+                        object value = null;
                         switch (Type.GetTypeCode(ce.Type))
                         {
                             case TypeCode.Int32:
@@ -1990,7 +1990,7 @@ namespace System.Linq.Dynamic
 
         private void NextToken()
         {
-            while (Char.IsWhiteSpace(_ch)) NextChar();
+            while (char.IsWhiteSpace(_ch)) NextChar();
             TokenId t;
             int tokenPos = _textPos;
             switch (_ch)
@@ -2138,22 +2138,22 @@ namespace System.Linq.Dynamic
                     t = TokenId.StringLiteral;
                     break;
                 default:
-                    if (Char.IsLetter(_ch) || _ch == '@' || _ch == '_')
+                    if (char.IsLetter(_ch) || _ch == '@' || _ch == '_')
                     {
                         do
                         {
                             NextChar();
-                        } while (Char.IsLetterOrDigit(_ch) || _ch == '_');
+                        } while (char.IsLetterOrDigit(_ch) || _ch == '_');
                         t = TokenId.Identifier;
                         break;
                     }
-                    if (Char.IsDigit(_ch))
+                    if (char.IsDigit(_ch))
                     {
                         t = TokenId.IntegerLiteral;
                         do
                         {
                             NextChar();
-                        } while (Char.IsDigit(_ch));
+                        } while (char.IsDigit(_ch));
                         if (_ch == '.')
                         {
                             t = TokenId.RealLiteral;
@@ -2162,7 +2162,7 @@ namespace System.Linq.Dynamic
                             do
                             {
                                 NextChar();
-                            } while (Char.IsDigit(_ch));
+                            } while (char.IsDigit(_ch));
                         }
                         if (_ch == 'E' || _ch == 'e')
                         {
@@ -2173,7 +2173,7 @@ namespace System.Linq.Dynamic
                             do
                             {
                                 NextChar();
-                            } while (Char.IsDigit(_ch));
+                            } while (char.IsDigit(_ch));
                         }
                         if (_ch == 'F' || _ch == 'f') NextChar();
                         break;
@@ -2192,7 +2192,7 @@ namespace System.Linq.Dynamic
 
         private bool TokenIdentifierIs(string id)
         {
-            return _token.Id == TokenId.Identifier && String.Equals(id, _token.Text, StringComparison.OrdinalIgnoreCase);
+            return _token.Id == TokenId.Identifier && string.Equals(id, _token.Text, StringComparison.OrdinalIgnoreCase);
         }
 
         private string GetIdentifier()
@@ -2205,7 +2205,7 @@ namespace System.Linq.Dynamic
 
         private void ValidateDigit()
         {
-            if (!Char.IsDigit(_ch)) throw ParseError(_textPos, Res.DigitExpected);
+            if (!char.IsDigit(_ch)) throw ParseError(_textPos, Res.DigitExpected);
         }
 
         private void ValidateToken(TokenId t, string errorMessage)

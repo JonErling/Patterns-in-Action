@@ -78,8 +78,8 @@ namespace BusinessObjects.BusinessRules
                         string smin = Min.ToString();
                         string smax = Max.ToString();
 
-                        int result1 = string.Compare(smin, value);
-                        int result2 = string.Compare(value, smax);
+                        int result1 = string.CompareOrdinal(smin, value);
+                        int result2 = string.CompareOrdinal(value, smax);
 
                         return result1 >= 0 && result2 <= 0;
                 }

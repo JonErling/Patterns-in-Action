@@ -19,7 +19,7 @@ namespace Mvc.Areas.Auth.Controllers
 
         // overloaded 'injectable' constructor
         // ** Constructor Dependency Injection (DI).
-        public AuthController(IService service) { this.Service = service; }
+        public AuthController(IService service) { Service = service; }
 
         // login page
 

@@ -20,7 +20,7 @@ namespace WpfApp.ViewModels
 
         public MemberViewModel(IProvider provider)
         {
-            this._provider = provider;
+            _provider = provider;
 
             Members = new ObservableCollection<MemberModel>();
 
@@ -122,7 +122,7 @@ namespace WpfApp.ViewModels
 
             public AddCommand(MemberViewModel viewModel)
             {
-                this._viewModel = viewModel;
+                _viewModel = viewModel;
             }
 
             public override void OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -159,7 +159,7 @@ namespace WpfApp.ViewModels
 
             public EditCommand(MemberViewModel viewModel)
             {
-                this._viewModel = viewModel;
+                _viewModel = viewModel;
             }
 
             public override void OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -193,7 +193,7 @@ namespace WpfApp.ViewModels
 
             public DeleteCommand(MemberViewModel viewModel)
             {
-                this._viewModel = viewModel;
+                _viewModel = viewModel;
             }
 
             public override void OnCanExecute(object sender, CanExecuteRoutedEventArgs e)
