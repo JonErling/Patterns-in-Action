@@ -77,7 +77,7 @@ namespace Mvc.Tests
         private static string GetUrlFileName(string url)
         {
             if (url.Contains("?"))
-                return url.Substring(0, url.IndexOf("?"));
+                return url.Substring(0, url.IndexOf("?", StringComparison.Ordinal));
             else
                 return url;
         }

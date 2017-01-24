@@ -28,22 +28,22 @@ namespace WebForms.Code.Logging
         /// <summary>
         /// Gets and sets the log severity.
         /// </summary>        
-        public LogSeverity Severity { get; private set; }
+        public LogSeverity Severity { get; }
 
         /// <summary>
         /// Gets and sets the log message.
         /// </summary>        
-        public string Message { get; private set; }
+        public string Message { get; }
 
         /// <summary>
         /// Gets and sets the optional inner exception.
         /// </summary>        
-        public Exception Exception { get; private set; }
+        public Exception Exception { get; }
 
         /// <summary>
         /// Gets and sets the log date and time.
         /// </summary>        
-        public DateTime Date { get; private set; }
+        public DateTime Date { get; }
 
         /// <summary>
         /// Friendly string that represents the severity.

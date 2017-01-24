@@ -10,9 +10,9 @@ namespace BusinessObjects.BusinessRules
     
     public class ValidateCompare : BusinessRule
     {
-        string OtherPropertyName { get; set; }
-        ValidationDataType DataType { get; set; }
-        ValidationOperator Operator { get; set; }
+        string OtherPropertyName { get; }
+        ValidationDataType DataType { get; }
+        ValidationOperator Operator { get; }
 
         public ValidateCompare(string propertyName, string otherPropertyName, 
             ValidationOperator @operator, ValidationDataType dataType )

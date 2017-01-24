@@ -12,7 +12,7 @@ namespace WpfApp.ViewModels
     {
         private IProvider provider;
 
-        public ObservableCollection<MemberModel> Members { private set; get; }
+        public ObservableCollection<MemberModel> Members { get; }
 
         public CommandModel AddCommandModel { private set; get; }
         public CommandModel EditCommandModel { private set; get; }

@@ -13,7 +13,7 @@ namespace Mvc.Areas.Shop.Controllers
 {
     public class ShopController : Controller
     {
-        IService service { get; set; }
+        IService service { get; }
 
         // static constructor. establishes Automapper object maps
 
@@ -117,7 +117,7 @@ namespace Mvc.Areas.Shop.Controllers
 
         static class PriceRange
         {
-            public static List<PriceRangeItem> List { get; private set; }
+            public static List<PriceRangeItem> List { get; }
 
             // creates list of price ranges
 
@@ -148,8 +148,8 @@ namespace Mvc.Areas.Shop.Controllers
             }
 
             public int RangeId { get; private set; }
-            public double RangeFrom { get; private set; }
-            public double RangeThru { get; private set; }
+            public double RangeFrom { get; }
+            public double RangeThru { get; }
             public string RangeText { get; private set; }
         }
 

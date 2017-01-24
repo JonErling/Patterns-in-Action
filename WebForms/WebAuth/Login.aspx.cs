@@ -42,7 +42,7 @@ namespace WebForms.WebAuth
             if (service.Login(email, password))
             {
                 string redirectUrl = FormsAuthentication.GetRedirectUrl(email, false);
-                if (redirectUrl != null && redirectUrl.IndexOf("admin") >= 0)
+                if (redirectUrl != null && redirectUrl.IndexOf("admin", StringComparison.Ordinal) >= 0)
                     FormsAuthentication.RedirectFromLoginPage(email, false);
                 else
                     Response.Redirect(UrlMaker.ToAdmin()); 

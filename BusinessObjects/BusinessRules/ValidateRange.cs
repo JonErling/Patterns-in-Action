@@ -10,11 +10,11 @@ namespace BusinessObjects.BusinessRules
     
     public class ValidateRange : BusinessRule
     {
-        ValidationDataType DataType { get; set; }
+        ValidationDataType DataType { get; }
         ValidationOperator Operator { get; set; }
 
-        object Min { get; set; }
-        object Max { get; set; }
+        object Min { get; }
+        object Max { get; }
 
         public ValidateRange(string propertyName, object min, object max,
             ValidationOperator @operator, ValidationDataType dataType)

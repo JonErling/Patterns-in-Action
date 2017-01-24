@@ -17,7 +17,7 @@ namespace Mvc.Areas.Admin.Controllers
     [Authorize(Roles="Admin")]
     public class AdminController : Controller
     {
-        IService service { get; set; }
+        IService service { get; }
 
         // static constructor. establishes Automapper object maps
 

@@ -10,7 +10,7 @@ namespace WebForms.Code
         
         // List of price ranges.
         
-        static List<PriceRangeItem> list { get; set; }
+        static List<PriceRangeItem> list { get; }
 
         
         // Static constructor initializeing price range list.

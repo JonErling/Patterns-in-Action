@@ -12,7 +12,7 @@ namespace Mvc.Areas.Auth.Controllers
 {
     public class AuthController : Controller
     {
-        IService service { get; set; }
+        IService service { get; }
 
         // default constructor
         public AuthController() : this(new Service()) { }

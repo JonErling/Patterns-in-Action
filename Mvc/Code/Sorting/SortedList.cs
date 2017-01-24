@@ -14,8 +14,8 @@ namespace Mvc.Code
         
         public List<T> List { get; private set; }
 
-        public string Sort { get; private set; }
-        public string Order { get; private set; } 
+        public string Sort { get; }
+        public string Order { get; } 
 
         public SortedList(List<T> list, string sort = null, string order = null)
         {

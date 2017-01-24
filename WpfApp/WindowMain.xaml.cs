@@ -20,7 +20,7 @@ namespace WpfApp
     {
         // the member viewmodel.
         
-        public MemberViewModel ViewModel { private set; get; }
+        public MemberViewModel ViewModel { get; }
 
         public WindowMain()
         {
