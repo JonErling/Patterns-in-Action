@@ -24,10 +24,7 @@ namespace WpfApp
         
         // helper that makes it easy to get to member ViewModel
         
-        private MemberViewModel MemberViewModel
-        {
-            get { return (Application.Current as App).MemberViewModel; }
-        }
+        private MemberViewModel MemberViewModel => (Application.Current as App).MemberViewModel;
 
         // called when window has been loaded
 

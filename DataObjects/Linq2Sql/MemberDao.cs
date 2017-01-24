@@ -71,7 +71,7 @@ namespace DataObjects.Linq2Sql
                         CompanyName = c.CompanyName,
                         City = c.City,
                         Country = c.Country,
-                        NumOrders = context.Orders.Where(o => o.MemberId == c.MemberId).Count(),
+                        NumOrders = context.Orders.Count(o => o.MemberId == c.MemberId),
                         LastOrderDate = context.Orders.Where(o => o.MemberId == c.MemberId).Max(o => o.OrderDate)
                     }).OrderBy(sortExpression); 
 

@@ -31,10 +31,7 @@ namespace WebForms.Code
         
         // gets the one instance of the GlobalViewStateSingleton class
         
-        public static GlobalViewStateSingleton Instance
-        {
-            get { return _instance; }
-        }
+        public static GlobalViewStateSingleton Instance => _instance;
 
         #endregion
 

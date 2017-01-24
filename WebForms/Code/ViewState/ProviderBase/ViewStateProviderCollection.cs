@@ -15,11 +15,8 @@ namespace WebForms.Code
     {
         // gets a viewState provider from a list given its name.
 
-        public new ViewStateProviderBase this[string name]
-        {
-            get { return base[name] as ViewStateProviderBase; }
-        }
-        
+        public new ViewStateProviderBase this[string name] => base[name] as ViewStateProviderBase;
+
         // adds a viewstate provider to a collection of providers.
         
         public override void Add(ProviderBase provider)

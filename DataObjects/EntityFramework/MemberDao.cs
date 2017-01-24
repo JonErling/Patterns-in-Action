@@ -50,7 +50,7 @@ namespace DataObjects.EntityFramework
         {
             using (var context = new actionEntities())
             {
-                var order = context.OrderEntities.Where(o => o.OrderId == orderId).SingleOrDefault() as OrderEntity;
+                var order = context.OrderEntities.SingleOrDefault(o => o.OrderId == orderId) as OrderEntity;
                 var member = context.MemberEntities.SingleOrDefault(c => c.MemberId == order.MemberId);
 
                 return Mapper.Map<MemberEntity, Member>(member);
@@ -77,7 +77,7 @@ namespace DataObjects.EntityFramework
                         CompanyName = m.CompanyName,
                         City = m.City,
                         Country = m.Country,
-                        NumOrders = orders.Where(o => o.MemberId  == m.MemberId).Count(),
+                        NumOrders = orders.Count(o => o.MemberId  == m.MemberId),
                         LastOrderDate = orders.Where(o => o.MemberId == m.MemberId).Max(o => o.OrderDate)
                     })
                     .OrderBy(sortExpression)

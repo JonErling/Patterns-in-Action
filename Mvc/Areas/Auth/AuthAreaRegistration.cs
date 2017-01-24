@@ -4,13 +4,7 @@ namespace Mvc.Areas.Auth
 {
     public class AuthAreaRegistration : AreaRegistration
     {
-        public override string AreaName
-        {
-            get
-            {
-                return "Auth";
-            }
-        }
+        public override string AreaName => "Auth";
 
         public override void RegisterArea(AreaRegistrationContext context)
         {

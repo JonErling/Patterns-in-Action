@@ -59,8 +59,7 @@ namespace WpfApp.Commands
 
         private static RoutedUICommand MakeRoutedUiCommand(string name, Key key, string displayString)
         {
-            var gestures = new InputGestureCollection();
-            gestures.Add(new KeyGesture(key, ModifierKeys.Control, displayString));
+            var gestures = new InputGestureCollection {new KeyGesture(key, ModifierKeys.Control, displayString)};
 
             return new RoutedUICommand(name, name, typeof(ActionCommands), gestures);
         }

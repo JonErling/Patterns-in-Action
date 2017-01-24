@@ -36,41 +36,26 @@ namespace WpfApp.ViewModels
 
         // gets a new member.
 
-        public MemberModel NewMemberModel
-        {
-            get { return new MemberModel(_provider); }
-        }
+        public MemberModel NewMemberModel => new MemberModel(_provider);
 
         // indicates whether a new member can be added
 
-        public bool CanAdd
-        {
-            get { return IsLoaded; }
-        }
+        public bool CanAdd => IsLoaded;
 
 
         // indicates whether a member is currently selected
 
-        public bool CanEdit
-        {
-            get { return IsLoaded && CurrentMember != null; }
-        }
+        public bool CanEdit => IsLoaded && CurrentMember != null;
 
 
         // indicates whether a member is selected that can be deleted
 
-        public bool CanDelete
-        {
-            get { return IsLoaded && CurrentMember != null; }
-        }
+        public bool CanDelete => IsLoaded && CurrentMember != null;
 
 
         // indicates whether a member is selected and orders can be viewed
 
-        public bool CanViewOrders
-        {
-            get { return IsLoaded && CurrentMember != null; }
-        }
+        public bool CanViewOrders => IsLoaded && CurrentMember != null;
 
 
         // retrieves and displays members in given sort order

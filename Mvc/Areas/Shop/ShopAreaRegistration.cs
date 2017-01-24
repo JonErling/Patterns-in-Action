@@ -4,13 +4,7 @@ namespace Mvc.Areas.Shop
 {
     public class ShopAreaRegistration : AreaRegistration
     {
-        public override string AreaName
-        {
-            get
-            {
-                return "Shop";
-            }
-        }
+        public override string AreaName => "Shop";
 
         public override void RegisterArea(AreaRegistrationContext context)
         {

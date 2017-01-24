@@ -42,18 +42,12 @@ namespace WinFormsApp
         /// <summary>
         /// Gets the username.
         /// </summary>
-        public string Email
-        {
-            get { return textBoxEmail.Text.Trim(); }
-        }
+        public string Email => textBoxEmail.Text.Trim();
 
         /// <summary>
         /// Gets the password.
         /// </summary>
-        public string Password
-        {
-            get { return textBoxPassword.Text.Trim(); }
-        }
+        public string Password => textBoxPassword.Text.Trim();
 
 
         /// <summary>

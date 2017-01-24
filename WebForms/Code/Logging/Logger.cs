@@ -38,10 +38,7 @@ namespace WebForms.Code.Logging
         
         // gets the instance of the singleton logger object
         
-        public static Logger Instance
-        {
-            get { return instance; }
-        }
+        public static Logger Instance => instance;
 
         #endregion
 

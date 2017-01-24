@@ -52,13 +52,7 @@ namespace WpfApp
         
         // gets assembly version
         
-        private string AssemblyVersion
-        {
-            get
-            {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
+        private string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         // gets assembly description
         

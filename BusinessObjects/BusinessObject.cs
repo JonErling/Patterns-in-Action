@@ -23,12 +23,9 @@ namespace BusinessObjects
         
         // gets list of validations errors
         
-        public List<string> Errors
-        {
-            get { return _errors; }
-        }
+        public List<string> Errors => _errors;
 
-        
+
         // adds a business rule to the business object
         
         protected void AddRule(BusinessRule rule)

@@ -19,12 +19,9 @@ namespace WebForms.Code
         // gets a collection of viewstate providers from web.config.
         
         [ConfigurationProperty("providers")]
-        public ProviderSettingsCollection Providers
-        {
-            get { return (ProviderSettingsCollection)base["providers"]; }
-        }
+        public ProviderSettingsCollection Providers => (ProviderSettingsCollection)base["providers"];
 
-        
+
         // gets or sets the default viewstate provider.
         
         [StringValidator(MinLength = 1)]

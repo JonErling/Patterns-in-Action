@@ -33,10 +33,7 @@ namespace WpfApp
 
         // helper to get member ViewModel.
         
-        private MemberViewModel MemberViewModel
-        {
-            get { return (Application.Current as App).MemberViewModel; }
-        }
+        private MemberViewModel MemberViewModel => (Application.Current as App).MemberViewModel;
 
 
         // load new or existing record

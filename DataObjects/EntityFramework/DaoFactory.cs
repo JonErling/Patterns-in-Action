@@ -11,10 +11,10 @@ namespace DataObjects.EntityFramework
 
     public class DaoFactory : IDaoFactory
     {
-        public IMemberDao MemberDao { get { return new MemberDao(); } }
-        public IOrderDao OrderDao { get { return new OrderDao(); } }
-        public IOrderDetailDao OrderDetailDao { get { return new OrderDetailDao(); } }
-        public IProductDao ProductDao { get { return new ProductDao(); } }
-        public ICategoryDao CategoryDao { get { return new CategoryDao(); } }
+        public IMemberDao MemberDao => new MemberDao();
+        public IOrderDao OrderDao => new OrderDao();
+        public IOrderDetailDao OrderDetailDao => new OrderDetailDao();
+        public IProductDao ProductDao => new ProductDao();
+        public ICategoryDao CategoryDao => new CategoryDao();
     }
 }

@@ -71,10 +71,8 @@ namespace WebForms.Code
         
         // gets the Sql sort expression for the current sort settings.
         
-        protected string SortExpression
-        {
-            get { return SortColumn + " " + SortDirection; }
-        }
+        protected string SortExpression => SortColumn + " " + SortDirection;
+
         #endregion
 
         #region ViewState Provider Service Access

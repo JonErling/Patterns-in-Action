@@ -103,7 +103,6 @@ namespace DataObjects.AdoNet
         {
             if (item == null)
                 return null;
-            ;
 
             return Convert.ToBase64String((byte[])item);
         }

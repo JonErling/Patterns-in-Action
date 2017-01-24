@@ -113,9 +113,6 @@ namespace WebForms
         // accessible from contentplaceholders. This allows the individual pages 
         // to set the selected menu item.
         
-        public MenuComposite TheMenuInMasterPage
-        {
-            get { return TheMenuComposite; }
-        }
+        public MenuComposite TheMenuInMasterPage => TheMenuComposite;
     }
 }
